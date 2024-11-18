@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-//teubi rhvbrjunv ngridklez
+//teubi rhvbrjunv ngridklez hge
 typedef enum {
     PASSAGER,
     MARCHANDISE,
