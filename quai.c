@@ -164,7 +164,7 @@ int main(void)
     return 0;
 }
 
-//à faire
+//reste à faire
 //navire qui quitte le quai
 //ajouter navire en attente
 //retirer navire en attente
