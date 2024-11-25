@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#define NB_QUAIS 4
+
 typedef enum 
 {
     PASSAGER,
@@ -17,16 +19,18 @@ typedef enum
     EN_ATTENTE
 } ETAT_NAVIRE;
 
-typedef struct Navire 
+typedef struct Navire Navire;
+struct Navire
 {
     int identifiant;            
     TYPE_NAVIRE type;           
     ETAT_NAVIRE etat;           
     float capacite_chargement;  
     Navire* suiv;     
-} Navire;
+};
 
-typedef struct Quai 
+typedef struct Quai Quai;
+struct Quai
 {
     int numero;
     float taille;              
@@ -34,86 +38,126 @@ typedef struct Quai
     TYPE_NAVIRE type_autorise;   
     int capacite_max; 
     Navire* attente;        
-} Quai;
+};
 
-Quai* initialiserQuai(int numero, TYPE_NAVIRE type_autorise, int capacite_max);
-int accosterNavire(Quai* quai, Navire* navire);
-int quitter(Quai* quai, int identifiant);
-
-Quai* initialiserQuai(int numero, TYPE_NAVIRE type_autorise, int capacite_max) 
+Quai* createQuai(int numero, float taille, float profondeur, TYPE_NAVIRE type_autorise, int capacite_max) 
 {
-    Quai* quai = (Quai*)malloc(sizeof(Quai));
+    Quai* quai = malloc(sizeof(Quai));
     quai->numero = numero;
+    quai->taille = taille;
+    quai->profondeur = profondeur;
     quai->type_autorise = type_autorise;
     quai->capacite_max = capacite_max;
     quai->attente = NULL; 
     return quai;
 }
 
-int accosterNavire(Quai* quai, Navire* navire)
+int accosterNavireQuai(Quai* quai, Navire* navire)
 {
-	if(navire->type != quai->type_autorise)
+	if (quai == NULL || navire == NULL)
 	{
-		printf("Erreur le navire %d ne peut pas accoster au quai %d\n", navire->identifiant, quai->numero);
 		return 0;
 	}
-
+	if(navire->type != quai->type_autorise)
+	{
+		printf("Navire %d non autorisé sur le quai %d\n", navire->identifiant, quai->numero);
+        return 0;
+	}
 	int c = 0;
 	Navire* temp = quai->attente;
 	while(temp != NULL)
 	{
-		c = c+1;
-		temp = temp->suiv;
+		c=c+1;
+		temp=temp->suiv;
 	}
-	if(c >= quai->numero->suiv)
+	if(c >= quai->capacite_max)
 	{
-		printf("Quai %d plein, le navire %d ne peut pas accoster\n", quai->numero, navire->identifiant);
-		return 0;
+		printf("Quai %d est plein. Impossible d'ajouter un navire\n", quai->numero);
+        return 0;
 	}
-	navire->etat = ACCOSTE;
-	navire->suiv=quai->attente;
-	quai->attente=navire;
-	printf("Le navire %d accosté au quai %d\n", navire->identifiant, quai->numero);
-	return 1;
+	navire->suiv = quai->attente;
+	quai->attente = navire;
+	printf("Navire %d ajouté au quai %d.\n", navire->identifiant, quai->numero);
+    return 1;
 }
 
-int quitter(Quai* quai, int identifiant)
+void afficherQuai(Quai* quai)
 {
-	Navire* prev = NULL;
-	Navire* temp = quai->attente;
-
-	while(temp != NULL && temp->Navire.identifiant != identifiant)
+	if(quai == NULL)
 	{
-		prev = temp;
+		return;
+	}
+	printf("Quai %d\n (Type autorisé: %d\nCapacité max: %d):\n", quai->numero, quai->type_autorise, quai->capacite_max);
+	Navire* temp = quai->attente;
+	while(temp != NULL)
+	{
+		printf("Navire\n identifiant: %d\n, Type: %d\n, État: %d\n, Capacité: %.2f\n tonnes\n", temp->identifiant, temp->type, temp->etat, temp->capacite_chargement);
 		temp = temp->suiv;
 	}
-	if(temp == NULL)
+	if(quai->attente == NULL)
 	{
-		printf("Erreur\n");
-		return 0;
+		printf("Aucun navire accosté.\n");
 	}
-	if(prev == NULL)
-	{
-		quai->attente = temp->suiv;	
-	}
-	else
-	{
-		prev->suiv = tmp->suiv;
-	}
-
-	free(temp);
-	printf("Le navire %d a quitté le quai %d\n", navire->identifiant, quai->numero);
-	return 1;
 }
+
 
 int main(void)
 {
-	Quai* quaiPassager = initialiserQuai(1, PASSAGER, 3);  
-    Quai* quaiMarchandise = initialiserQuai(2, MARCHANDISE, 2); 
-    Quai* quaiPetrolier = initialiserQuai(3, PETROLIER, 2);
-    Quai* quaiYacht = initialiserQuai(4, YACHT, 4);
+	Quai* quai[NB_QUAIS];
+	quai[1] = createQuai(1, 300.0, 12.0, MARCHANDISE, 2); 
+    quai[2] = createQuai(2, 400.0, 15.0, PETROLIER, 2);   
+    quai[3] = createQuai(3, 200.0, 10.0, PASSAGER, 3);    
+    quai[4] = createQuai(4, 100.0, 8.0, YACHT, 4);
+    int choix;
+    do
+    {
+    	printf("\n=== Menu de Gestion des Quais et Navires ===\n");
+	    printf("1. Ajouter un navire à un quai\n");
+	    printf("2. Afficher les navires d'un quai\n");
+	    printf("3. Quitter\n");
+	    printf("Choisissez une option : \n");
+	    scanf("%d", &choix);
+
+	    Navire* navire = NULL;
+
+	    switch(choix)
+	    {
+	    	case 1: {
+                int identifiant;
+                int numero;
+                printf("Entrez l'ID du navire à ajouter (101 à 104 pour cet exemple) : ");
+                scanf("%d", &identifiant);
+                printf("Entrez l'ID du quai (1 à 4) : ");
+                scanf("%d", &numero);
+
+                if (numero < 1 || numero > 4) {
+                    printf("Quai invalide.\n");
+                    continue;
+                }
+
+                accosterNavireQuai(quai[numero - 1], navire);
+                break;
+            }
+            case 2: {
+                int numero;
+                printf("Entrez l'ID du quai (1 à 4) : ");
+                scanf("%d", &numero);
+
+                if (numero < 1 || numero > 4) {
+                    printf("Quai invalide.\n");
+                    continue;
+                }
+
+                afficherQuai(quai[numero - 1]);
+                break;
+            }
+            case 3:
+                printf("Au revoir !\n");
+                break;
+            default:
+                printf("Option invalide. Réessayez.\n");
+	    }
+    }while (choix != 3);
     return 0;
 }
-
-
 
