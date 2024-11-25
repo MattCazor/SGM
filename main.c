@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
+#include <math.h>
 
 typedef enum
 {
@@ -19,7 +20,8 @@ typedef enum
     EN_ATTENTE
 } ETAT_NAVIRE;
 
-typedef struct Navire
+typedef struct Navire Navire;
+struct Navire
 {
     int identifiant;
     TYPE_NAVIRE type;
@@ -27,7 +29,7 @@ typedef struct Navire
     float capacite_chargement;
     Navire *precedent;
     Navire *suivant;
-} Navire;
+};
 
 typedef struct Quai
 {
@@ -37,6 +39,12 @@ typedef struct Quai
     TYPE_NAVIRE type_autorise;
     int capacite_max;
 } Quai;
+
+typedef struct Mouillage
+{
+    int capacité;
+    Navire *attente;
+} Mouillage;
 
 typedef struct liste_passager liste_passager;
 struct liste_passager
@@ -70,6 +78,7 @@ liste_yacht *Liste_yacht;
 
 void initialise_listes();
 Navire *newBoat(TYPE_NAVIRE type, int capacite);
+Navire *recherche_navire(int id);
 
 int main(void)
 {
@@ -93,10 +102,11 @@ void initialise_listes()
 
 Navire *newBoat(TYPE_NAVIRE type, int capacite)
 {
-    Navire *new;
+    Navire *new = malloc(sizeof(Navire));
     new->capacite_chargement = capacite;
     new->etat = EN_ATTENTE;
     new->suivant = NULL;
+    int n = 0;
     switch (type)
     {
     case PASSAGER:
@@ -172,7 +182,7 @@ Navire *newBoat(TYPE_NAVIRE type, int capacite)
         break;
 
     case ALEATOIRE:
-        int n = rand() % 4 + 1;
+        n = rand() % 4 + 1;
         switch (n)
         {
         case 1:
@@ -200,50 +210,66 @@ Navire *newBoat(TYPE_NAVIRE type, int capacite)
         }
 
     default:
+        return new;
         break;
     }
 }
 
-
-
-Navire *recherche_navire(int id){
-    int l = log10(id);   
+Navire *recherche_navire(int id)
+{
+    int l = log10(id);
     int pre = id / pow(10, l);
-    Navire *tmp=malloc(sizeof(Navire));
-    switch(pre){
-        case 1:
-            tmp=Liste_passager->premier;
-            while(tmp->identifiant != id && tmp != NULL){
-                tmp=tmp->suivant;
-            }
-            return tmp;
-            break;
+    Navire *tmp = malloc(sizeof(Navire));
+    switch (pre)
+    {
+    case 1:
+        tmp = Liste_passager->premier;
+        while (tmp->identifiant != id && tmp != NULL)
+        {
+            tmp = tmp->suivant;
+        }
+        return tmp;
+        break;
 
-        case 2:
-            tmp=Liste_marchandise->premier;
-            while(tmp->identifiant != id && tmp != NULL){
-                tmp=tmp->suivant;
-            }
-            return tmp;
-            break;
+    case 2:
+        tmp = Liste_marchandise->premier;
+        while (tmp->identifiant != id && tmp != NULL)
+        {
+            tmp = tmp->suivant;
+        }
+        return tmp;
+        break;
 
-        case 3:
-            tmp=Liste_petrolier->premier;
-            while(tmp->identifiant != id && tmp != NULL){
-                tmp=tmp->suivant;
-            }
-            return tmp;
-            break;
+    case 3:
+        tmp = Liste_petrolier->premier;
+        while (tmp->identifiant != id && tmp != NULL)
+        {
+            tmp = tmp->suivant;
+        }
+        return tmp;
+        break;
 
-        case 4:
-            tmp=Liste_yacht->premier;
-            while(tmp->identifiant != id && tmp != NULL){
-                tmp=tmp->suivant;
-            }
-            return tmp;
-            break;
+    case 4:
+        tmp = Liste_yacht->premier;
+        while (tmp->identifiant != id && tmp != NULL)
+        {
+            tmp = tmp->suivant;
+        }
+        return tmp;
+        break;
 
-        default:
-            break;
+    default:
+        return tmp;
+        break;
+    }
+}
+
+void afficher_liste_passager(liste_passager Liste)
+{
+    Navire *tmp = Liste_passager->premier;
+    while (tmp != NULL)
+    {
+        printf("identifiant: %d \n etat: %u\n capacite: %f", tmp->identifiant, tmp->etat, tmp->capacite_chargement);
+        tmp = tmp->suivant;
     }
 }
