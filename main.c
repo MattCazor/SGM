@@ -79,6 +79,10 @@ liste_yacht *Liste_yacht;
 void initialise_listes();
 Navire *newBoat(TYPE_NAVIRE type, int capacite);
 Navire *recherche_navire(int id);
+void afficher_liste_passager(liste_passager Liste);
+void afficher_liste_marchandise(liste_marchandise Liste);
+void afficher_liste_petrolier(liste_petrolier Liste);
+void afficher_liste_yacht(liste_yacht Liste);
 
 int main(void)
 {
@@ -267,6 +271,36 @@ Navire *recherche_navire(int id)
 void afficher_liste_passager(liste_passager Liste)
 {
     Navire *tmp = Liste_passager->premier;
+    while (tmp != NULL)
+    {
+        printf("identifiant: %d \n etat: %u\n capacite: %f", tmp->identifiant, tmp->etat, tmp->capacite_chargement);
+        tmp = tmp->suivant;
+    }
+}
+
+void afficher_liste_marchandise(liste_marchandise Liste)
+{
+    Navire *tmp = Liste_marchandise->premier;
+    while (tmp != NULL)
+    {
+        printf("identifiant: %d \n etat: %u\n capacite: %f", tmp->identifiant, tmp->etat, tmp->capacite_chargement);
+        tmp = tmp->suivant;
+    }
+}
+
+void afficher_liste_petrolier(liste_petrolier Liste)
+{
+    Navire *tmp = Liste_petrolier->premier;
+    while (tmp != NULL)
+    {
+        printf("identifiant: %d \n etat: %u\n capacite: %f", tmp->identifiant, tmp->etat, tmp->capacite_chargement);
+        tmp = tmp->suivant;
+    }
+}
+
+void afficher_liste_yacht(liste_yacht Liste)
+{
+    Navire *tmp = Liste_yacht->premier;
     while (tmp != NULL)
     {
         printf("identifiant: %d \n etat: %u\n capacite: %f", tmp->identifiant, tmp->etat, tmp->capacite_chargement);
