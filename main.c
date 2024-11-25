@@ -61,6 +61,27 @@ struct marchandise{
     Navire *bateau;
 };
 
+typedef struct liste_passager{
+    passager *premier;
+    passager *dernier;
+};
+
+typedef struct liste_petrolier{
+    petrolier *premier;
+    petrolier *dernier;
+};
+
+typedef struct liste_yacht{
+    yacht *premier;
+    yacht *dernier;
+};
+
+typedef struct liste_marchandise{
+    marchandise *premier;
+    marchandise *dernier;
+};
+
+
 int main(void){
     return 0;
 }
@@ -71,7 +92,9 @@ Navire newBoat(TYPE_NAVIRE type, int capacite){
     {
     case PASSAGER:
         new.capacite_chargement=capacite;
-        new.etat=
+        new.etat=EN_ATTENTE;
+        new.type=PASSAGER;
+        new.identifiant=
         
         break;
     
