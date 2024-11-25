@@ -40,6 +40,9 @@ struct Quai
     Navire* attente;        
 };
 
+Quai* createQuai(int numero, float taille, float profondeur, TYPE_NAVIRE type_autorise, int capacite_max);
+void afficherQuai(Quai* quai);
+
 Quai* createQuai(int numero, float taille, float profondeur, TYPE_NAVIRE type_autorise, int capacite_max) 
 {
     Quai* quai = malloc(sizeof(Quai));
@@ -161,3 +164,8 @@ int main(void)
     return 0;
 }
 
+//à faire
+//navire qui quitte le quai
+//ajouter navire en attente
+//retirer navire en attente
+//afficher navire en attente 
