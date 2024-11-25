@@ -68,11 +68,14 @@ const char *etatNavireToString(ETAT_NAVIRE etat);
 
 int main(void){
 
-Navire navire;
-printf("Saisir un identifiant de navire:\n");
-scanf("%d",&)
-point2d.y= 4;
-    
+Navire *liste=NULL;
+
+if (saveNavire(liste, "navires.txt")) {
+        printf("Les données des navires ont été sauvegardées avec succès.\n");
+    } else {
+        printf("Erreur lors de la sauvegarde des données.\n");
+    }
+  
 
     return 0;
 }
@@ -87,7 +90,7 @@ const char *typeNavireEnChaine(TYPE_NAVIRE type){
     }
 }
 
-const char *etatNavireToString(ETAT_NAVIRE etat){
+const char *etatNavireEnChaine(ETAT_NAVIRE etat){
     switch (etat) {
         case EN_MER: return "EN_MER";
         case ACCOSTE: return "ACCOSTE";
@@ -104,13 +107,17 @@ int saveNavire(Navire *liste,char*navire){
     if(fichier==NULL){
         printf("Impossible d'ouvrir ce fichier\n");
 
+        return 0;
+    }
+
     Navire*tmp=liste;
 
     while(tmp!=NULL){
-        fprintf(fichier,"id:%d, type:%s, état:%s, capacité de chargement:%.2f\n",tmp->identifiant,typeNavireEnChaine(tmp->type),typeNavireEnChaine(tmp->etat));
+        fprintf(fichier,"id:%d, type:%s, état:%s, capacité de chargement:%.2f\n",tmp->identifiant,typeNavireEnChaine(tmp->type),etatNavireEnChaine(tmp->etat));
         tmp=tmp->suivant;
     }
     fclose(fichier);
     return 1; 
-    }
+
 }
+
