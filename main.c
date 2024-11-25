@@ -68,6 +68,9 @@ liste_marchandise *Liste_marchandise;
 liste_petrolier *Liste_petrolier;
 liste_yacht *Liste_yacht;
 
+void initialise_listes();
+Navire *newBoat(TYPE_NAVIRE type, int capacite);
+
 int main(void)
 {
     return 0;
@@ -154,7 +157,7 @@ Navire *newBoat(TYPE_NAVIRE type, int capacite)
         new->type = YACHT;
         if (Liste_yacht->premier == NULL)
         {
-            new->identifiant = 20000;
+            new->identifiant = 40000;
             Liste_yacht->premier = new;
             Liste_yacht->dernier = new;
             new->precedent = NULL;
@@ -198,5 +201,49 @@ Navire *newBoat(TYPE_NAVIRE type, int capacite)
 
     default:
         break;
+    }
+}
+
+
+
+Navire *recherche_navire(int id){
+    int l = log10(id);   
+    int pre = id / pow(10, l);
+    Navire *tmp=malloc(sizeof(Navire));
+    switch(pre){
+        case 1:
+            tmp=Liste_passager->premier;
+            while(tmp->identifiant != id && tmp != NULL){
+                tmp=tmp->suivant;
+            }
+            return tmp;
+            break;
+
+        case 2:
+            tmp=Liste_marchandise->premier;
+            while(tmp->identifiant != id && tmp != NULL){
+                tmp=tmp->suivant;
+            }
+            return tmp;
+            break;
+
+        case 3:
+            tmp=Liste_petrolier->premier;
+            while(tmp->identifiant != id && tmp != NULL){
+                tmp=tmp->suivant;
+            }
+            return tmp;
+            break;
+
+        case 4:
+            tmp=Liste_yacht->premier;
+            while(tmp->identifiant != id && tmp != NULL){
+                tmp=tmp->suivant;
+            }
+            return tmp;
+            break;
+
+        default:
+            break;
     }
 }
