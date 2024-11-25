@@ -65,11 +65,13 @@ int main(void){
     return 0;
 }
 
-Navire newBoat(TYPE_NAVIRE type){
+Navire newBoat(TYPE_NAVIRE type, int capacite){
     Navire new;
     switch (type)
     {
     case PASSAGER:
+        new.capacite_chargement=capacite;
+        new.etat=
         
         break;
     
