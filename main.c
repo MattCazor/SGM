@@ -91,25 +91,110 @@ void initialise_listes()
 Navire *newBoat(TYPE_NAVIRE type, int capacite)
 {
     Navire *new;
+    new->capacite_chargement = capacite;
+    new->etat = EN_ATTENTE;
+    new->suivant = NULL;
     switch (type)
     {
     case PASSAGER:
-        new->capacite_chargement = capacite;
-        new->etat = EN_ATTENTE;
         new->type = PASSAGER;
         if (Liste_passager->premier == NULL)
         {
             new->identifiant = 10000;
             Liste_passager->premier = new;
             Liste_passager->dernier = new;
-            new->precedent=NULL;
-            new->suivant=NULL;
+            new->precedent = NULL;
+            return new;
         }
+
         new->identifiant = Liste_passager->dernier->identifiant + 1;
+        new->precedent = Liste_passager->dernier;
 
         return new;
 
         break;
+
+    case MARCHANDISE:
+        new->type = MARCHANDISE;
+        if (Liste_marchandise->premier == NULL)
+        {
+            new->identifiant = 20000;
+            Liste_marchandise->premier = new;
+            Liste_marchandise->dernier = new;
+            new->precedent = NULL;
+            return new;
+        }
+
+        new->identifiant = Liste_marchandise->dernier->identifiant + 1;
+        new->precedent = Liste_marchandise->dernier;
+
+        return new;
+
+        break;
+
+    case PETROLIER:
+        new->type = PETROLIER;
+        if (Liste_petrolier->premier == NULL)
+        {
+            new->identifiant = 30000;
+            Liste_petrolier->premier = new;
+            Liste_petrolier->dernier = new;
+            new->precedent = NULL;
+            return new;
+        }
+
+        new->identifiant = Liste_petrolier->dernier->identifiant + 1;
+        new->precedent = Liste_petrolier->dernier;
+
+        return new;
+
+        break;
+
+    case YACHT:
+        new->type = YACHT;
+        if (Liste_yacht->premier == NULL)
+        {
+            new->identifiant = 20000;
+            Liste_yacht->premier = new;
+            Liste_yacht->dernier = new;
+            new->precedent = NULL;
+            return new;
+        }
+
+        new->identifiant = Liste_yacht->dernier->identifiant + 1;
+        new->precedent = Liste_yacht->dernier;
+
+        return new;
+
+        break;
+
+    case ALEATOIRE:
+        int n = rand() % 4 + 1;
+        switch (n)
+        {
+        case 1:
+            newBoat(PASSAGER, rand() % 8 + 4);
+
+            break;
+
+        case 2:
+            newBoat(MARCHANDISE, rand() % 100000 + 10000);
+
+            break;
+
+        case 3:
+            newBoat(PETROLIER, rand() % 200000 + 80000);
+
+            break;
+
+        case 4:
+            newBoat(YACHT, rand() % 3 + 0.5);
+
+            break;
+
+        default:
+            break;
+        }
 
     default:
         break;
