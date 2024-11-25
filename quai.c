@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-//teubi rhvbrjunv ngridklez hge
+
 typedef enum {
     PASSAGER,
     MARCHANDISE,
@@ -31,3 +31,6 @@ typedef struct Quai {
     TYPE_NAVIRE type_autorise;   
     int capacite_max;         
 } Quai;
+
+
+
