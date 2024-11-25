@@ -114,7 +114,7 @@ int main(void)
     int choix;
     do
     {
-    	printf("\n=== Menu de Gestion des Quais et Navires ===\n");
+    	printf("\n=== Menu de Gestion des Quais ===\n");
 	    printf("1. Ajouter un navire à un quai\n");
 	    printf("2. Afficher les navires d'un quai\n");
 	    printf("3. Quitter\n");
