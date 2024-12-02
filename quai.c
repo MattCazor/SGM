@@ -3,7 +3,7 @@
 #include <string.h>
 
 #define NB_QUAIS 4
-//"hj nbzvgdjnz,"
+
 typedef enum 
 {
     PASSAGER,
@@ -122,6 +122,7 @@ int accosterNavireQuai(Quai* quai, Navire* navire)
 	}
 	navire->suiv = quai->attente;
 	quai->attente = navire;
+	navire->etat = ACCOSTE;
 	printf("Navire %d ajouté au quai %d.\n", navire->identifiant, quai->numero);
     return 1;
 }
