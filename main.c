@@ -6,11 +6,11 @@
 
 typedef enum
 {
+    ALEATOIRE,
     PASSAGER,
     MARCHANDISE,
     PETROLIER,
-    YACHT,
-    ALEATOIRE
+    YACHT
 } TYPE_NAVIRE;
 
 typedef enum
@@ -47,46 +47,33 @@ typedef struct Mouillage
     Navire *premier;
 } Mouillage;
 
-typedef struct liste_passager liste_passager;
-struct liste_passager
+typedef struct liste_bateau liste_bateau;
+struct liste_bateau
 {
     Navire *premier;
     Navire *dernier;
 };
 
-typedef struct liste_petrolier
+typedef struct id_dispo id_dispo;
+struct id_dispo
 {
-    Navire *premier;
-    Navire *dernier;
-} liste_petrolier;
+    int id_passager;
+    int id_marchandise;
+    int id_petrolier;
+    int id_yacht;
+};
 
-typedef struct liste_yacht
-{
-    Navire *premier;
-    Navire *dernier;
-} liste_yacht;
-
-typedef struct liste_marchandise
-{
-    Navire *premier;
-    Navire *dernier;
-} liste_marchandise;
-
-liste_passager *Liste_passager;
-liste_marchandise *Liste_marchandise;
-liste_petrolier *Liste_petrolier;
-liste_yacht *Liste_yacht;
+liste_bateau *Liste_bateau;
 Mouillage *mouillage;
+id_dispo *Id_Dispo;
 
 void initialise_listes();
 int nb_mouillage();
+Navire *ajoute_liste_bateau(Navire *bateau);
 Navire *newBoat(TYPE_NAVIRE type, int capacite);
 Navire *recherche_navire(int id);
 void afficher_mouillage(Mouillage *Liste);
-void afficher_liste_passager(liste_passager *Liste);
-void afficher_liste_marchandise(liste_marchandise *Liste);
-void afficher_liste_petrolier(liste_petrolier *Liste);
-void afficher_liste_yacht(liste_yacht *Liste);
+void afficher_liste_bateau(liste_bateau *Liste);
 
 int main(void)
 {
@@ -96,10 +83,7 @@ int main(void)
         newBoat(ALEATOIRE, 0);
     }
 
-    afficher_liste_passager(Liste_passager);
-    afficher_liste_marchandise(Liste_marchandise);
-    afficher_liste_petrolier(Liste_petrolier);
-    afficher_liste_yacht(Liste_yacht);
+    afficher_liste_bateau(Liste_bateau);
     afficher_mouillage(mouillage);
 
     return 0;
@@ -107,25 +91,19 @@ int main(void)
 
 void initialise_listes()
 {
-    Liste_passager = malloc(sizeof(liste_passager));
-    Liste_passager->premier = NULL;
-    Liste_passager->dernier = NULL;
-
-    Liste_marchandise = malloc(sizeof(liste_marchandise));
-    Liste_marchandise->premier = NULL;
-    Liste_marchandise->dernier = NULL;
-
-    Liste_petrolier = malloc(sizeof(liste_petrolier));
-    Liste_petrolier->premier = NULL;
-    Liste_petrolier->dernier = NULL;
-
-    Liste_yacht = malloc(sizeof(liste_yacht));
-    Liste_yacht->premier = NULL;
-    Liste_yacht->dernier = NULL;
+    Liste_bateau = malloc(sizeof(liste_bateau));
+    Liste_bateau->premier = NULL;
+    Liste_bateau->dernier = NULL;
 
     mouillage = malloc(sizeof(Mouillage));
     mouillage->capacité = 5;
     mouillage->premier = NULL;
+
+    Id_Dispo = malloc(sizeof(id_dispo));
+    Id_Dispo->id_passager = 10000;
+    Id_Dispo->id_marchandise = 20000;
+    Id_Dispo->id_petrolier = 30000;
+    Id_Dispo->id_yacht = 40000;
 }
 
 int nb_mouillage()
@@ -153,7 +131,23 @@ void ajoute_mouillage(Navire *bateau)
     {
         tmp = tmp->mouillage_suiv;
     }
-    tmp->mouillage_suiv=bateau;
+    tmp->mouillage_suiv = bateau;
+}
+
+Navire *ajoute_liste_bateau(Navire *bateau){
+    if (Liste_bateau->premier == NULL)
+        {
+            Liste_bateau->premier = bateau;
+            Liste_bateau->dernier = bateau;
+            bateau->precedent = NULL;
+        }
+        else
+        {
+            bateau->precedent = Liste_bateau->dernier;
+            bateau->precedent->suivant = bateau;
+            Liste_bateau->dernier = bateau;
+        }
+    return bateau;
 }
 
 Navire *newBoat(TYPE_NAVIRE type, int capacite)
@@ -171,22 +165,10 @@ Navire *newBoat(TYPE_NAVIRE type, int capacite)
         {
         case PASSAGER:
             new->type = PASSAGER;
-            if (Liste_passager->premier == NULL)
-            {
-                new->identifiant = 10000;
-                Liste_passager->premier = new;
-                Liste_passager->dernier = new;
-                new->precedent = NULL;
+            new->identifiant = Id_Dispo->id_passager + 1;
+            Id_Dispo->id_passager++;
 
-                ajoute_mouillage(new);
-
-                return new;
-            }
-
-            new->identifiant = Liste_passager->dernier->identifiant + 1;
-            new->precedent = Liste_passager->dernier;
-            new->precedent->suivant = new;
-            Liste_passager->dernier = new;
+            ajoute_liste_bateau(new);
 
             ajoute_mouillage(new);
 
@@ -196,21 +178,10 @@ Navire *newBoat(TYPE_NAVIRE type, int capacite)
 
         case MARCHANDISE:
             new->type = MARCHANDISE;
-            if (Liste_marchandise->premier == NULL)
-            {
-                new->identifiant = 20000;
-                Liste_marchandise->premier = new;
-                Liste_marchandise->dernier = new;
-                new->precedent = NULL;
+            new->identifiant = Id_Dispo->id_marchandise + 1;
+            Id_Dispo->id_marchandise++;
 
-                ajoute_mouillage(new);
-                return new;
-            }
-
-            new->identifiant = Liste_marchandise->dernier->identifiant + 1;
-            new->precedent = Liste_marchandise->dernier;
-            new->precedent->suivant = new;
-            Liste_marchandise->dernier = new;
+            ajoute_liste_bateau(new);
 
             ajoute_mouillage(new);
 
@@ -220,21 +191,10 @@ Navire *newBoat(TYPE_NAVIRE type, int capacite)
 
         case PETROLIER:
             new->type = PETROLIER;
-            if (Liste_petrolier->premier == NULL)
-            {
-                new->identifiant = 30000;
-                Liste_petrolier->premier = new;
-                Liste_petrolier->dernier = new;
-                new->precedent = NULL;
+            new->identifiant = Id_Dispo->id_petrolier + 1;
+            Id_Dispo->id_petrolier++;
 
-                ajoute_mouillage(new);
-                return new;
-            }
-
-            new->identifiant = Liste_petrolier->dernier->identifiant + 1;
-            new->precedent = Liste_petrolier->dernier;
-            new->precedent->suivant = new;
-            Liste_petrolier->dernier = new;
+            ajoute_liste_bateau(new);
 
             ajoute_mouillage(new);
 
@@ -244,21 +204,10 @@ Navire *newBoat(TYPE_NAVIRE type, int capacite)
 
         case YACHT:
             new->type = YACHT;
-            if (Liste_yacht->premier == NULL)
-            {
-                new->identifiant = 40000;
-                Liste_yacht->premier = new;
-                Liste_yacht->dernier = new;
-                new->precedent = NULL;
+            new->identifiant = Id_Dispo->id_yacht + 1;
+            Id_Dispo->id_yacht++;
 
-                ajoute_mouillage(new);
-                return new;
-            }
-
-            new->identifiant = Liste_yacht->dernier->identifiant + 1;
-            new->precedent = Liste_yacht->dernier;
-            new->precedent->suivant = new;
-            Liste_yacht->dernier = new;
+            ajoute_liste_bateau(new);
 
             ajoute_mouillage(new);
 
@@ -304,51 +253,12 @@ Navire *newBoat(TYPE_NAVIRE type, int capacite)
 
 Navire *recherche_navire(int id)
 {
-    int l = log10(id);
-    int pre = id / pow(10, l);
-    Navire *tmp = malloc(sizeof(Navire));
-    switch (pre)
+    Navire *tmp = Liste_bateau->premier;
+    while (tmp != NULL && tmp->identifiant != id)
     {
-    case 1:
-        tmp = Liste_passager->premier;
-        while (tmp->identifiant != id && tmp != NULL)
-        {
-            tmp = tmp->suivant;
-        }
-        return tmp;
-        break;
-
-    case 2:
-        tmp = Liste_marchandise->premier;
-        while (tmp->identifiant != id && tmp != NULL)
-        {
-            tmp = tmp->suivant;
-        }
-        return tmp;
-        break;
-
-    case 3:
-        tmp = Liste_petrolier->premier;
-        while (tmp->identifiant != id && tmp != NULL)
-        {
-            tmp = tmp->suivant;
-        }
-        return tmp;
-        break;
-
-    case 4:
-        tmp = Liste_yacht->premier;
-        while (tmp->identifiant != id && tmp != NULL)
-        {
-            tmp = tmp->suivant;
-        }
-        return tmp;
-        break;
-
-    default:
-        return tmp;
-        break;
+        tmp = tmp->suivant;
     }
+    return tmp;
 }
 
 void afficher_mouillage(Mouillage *Liste)
@@ -363,50 +273,38 @@ void afficher_mouillage(Mouillage *Liste)
     printf("\n\n\n");
 }
 
-void afficher_liste_passager(liste_passager *Liste)
+void afficher_liste_bateau(liste_bateau *Liste)
 {
-    Navire *tmp = Liste_passager->premier;
-    printf("liste passsager\n");
+    Navire *tmp = Liste_bateau->premier;
+    printf("liste bateau\n");
     while (tmp != NULL)
     {
-        printf("identifiant: %d \n etat: %u\n capacite: %.f T\n\n", tmp->identifiant, tmp->etat, tmp->capacite_chargement);
+        printf("type: %u\nidentifiant: %d \n etat: %u\n capacite: %.f T\n\n", tmp->type, tmp->identifiant, tmp->etat, tmp->capacite_chargement);
         tmp = tmp->suivant;
     }
     printf("\n\n\n");
 }
 
-void afficher_liste_marchandise(liste_marchandise *Liste)
+void enleve_mouillage(int id)
 {
-    Navire *tmp = Liste_marchandise->premier;
-    printf("liste marchandise\n");
-    while (tmp != NULL)
+    Navire *tmp = mouillage->premier;
+    Navire *ptmp = tmp;
+    while (tmp != NULL && tmp->identifiant != id)
     {
-        printf("identifiant: %d \n etat: %u\n capacite: %.f T\n\n", tmp->identifiant, tmp->etat, tmp->capacite_chargement);
-        tmp = tmp->suivant;
+        ptmp = tmp;
+        tmp = tmp->mouillage_suiv;
     }
-    printf("\n\n\n");
-}
 
-void afficher_liste_petrolier(liste_petrolier *Liste)
-{
-    Navire *tmp = Liste_petrolier->premier;
-    printf("liste petrolier\n");
-    while (tmp != NULL)
+    if (tmp == NULL)
     {
-        printf("identifiant: %d \n etat: %u\n capacite: %.f T\n\n", tmp->identifiant, tmp->etat, tmp->capacite_chargement);
-        tmp = tmp->suivant;
+        return;
     }
-    printf("\n\n\n");
-}
 
-void afficher_liste_yacht(liste_yacht *Liste)
-{
-    Navire *tmp = Liste_yacht->premier;
-    printf("liste yacht\n");
-    while (tmp != NULL)
+    if (tmp == mouillage->premier)
     {
-        printf("identifiant: %d \n etat: %u\n capacite: %.f T\n\n", tmp->identifiant, tmp->etat, tmp->capacite_chargement);
-        tmp = tmp->suivant;
+        mouillage->premier = tmp->mouillage_suiv;
+        return;
     }
-    printf("\n\n\n");
+
+    ptmp->mouillage_suiv = tmp->mouillage_suiv;
 }
