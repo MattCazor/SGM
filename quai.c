@@ -3,7 +3,7 @@
 #include <string.h>
 
 #define NB_QUAIS 4
-
+//"hj nbzvgdjnz,"
 typedef enum 
 {
     PASSAGER,
