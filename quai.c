@@ -224,6 +224,24 @@ void afficheAttente(Quai* quai)
     }
 }
 
+Navire* createNavire(int id, TYPE_NAVIRE type, float capacite) 
+{
+    Navire* navire = malloc(sizeof(Navire));
+    if (navire == NULL) {
+        printf("Erreur d'allocation mémoire pour le navire !\n");
+        return NULL;
+    }
+
+    navire->identifiant = id;
+    navire->type = type;
+    navire->capacite_chargement = capacite;
+    navire->etat = EN_MER;
+    navire->suiv = NULL;
+
+    return navire;
+}
+
+
 int main(void)
 {
 	Quai* quai[NB_QUAIS];
@@ -250,20 +268,44 @@ int main(void)
 
 	    switch(choix)
 	    {
-	    	case 1: 
-                printf("Entrez l'ID du navire à ajouter : \n");
-                scanf("%d", &identifiant);
-                printf("Entrez l'ID du quai :\n");
-                scanf("%d", &numero);
+	    	case 1:
+			    printf("Entrez l'ID du navire à ajouter : \n");
+			    scanf("%d", &identifiant);
 
-                if (numero < 1 || numero > 4) {
-                    printf("Quai invalide.\n");
-                    continue;
-                }
+			    navire = malloc(sizeof(Navire));
+			    if (navire == NULL) 
+			    {
+			        printf("Erreur d'allocation mémoire pour le navire !\n");
+			        continue;
+			    }
+			    navire->identifiant = identifiant;
+			    printf("Entrez le type du navire (1: Marchandise, 2: Pétrolier, 3: Passager, 4: Yacht) : \n");
+			    int type;
+			    scanf("%d", &type);
+			    if (type < 1 || type > 4) 
+			    {
+			        printf("Type de navire invalide.\n");
+			        free(navire);
+			        continue;
+			    }
+			    navire->type = (TYPE_NAVIRE)type;
+			    printf("Entrez la capacité de chargement du navire (en tonnes) : \n");
+			    scanf("%f", &navire->capacite_chargement);
+			    navire->etat = EN_MER;
+			    navire->suiv = NULL;
+			    printf("Entrez l'ID du quai :\n");
+			    scanf("%d", &numero);
 
-                accosterNavireQuai(quai[numero - 1], navire);
-                break;
-            
+			    if (numero < 1 || numero > 4) 
+			    {
+			        printf("Quai invalide.\n");
+			        free(navire);
+			        continue;
+			    }
+
+			    accosterNavireQuai(quai[numero - 1], navire);
+			    break;
+
             case 2:
                 printf("Entrez l'ID du quai :\n");
                 scanf("%d", &numero);
