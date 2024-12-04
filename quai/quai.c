@@ -38,6 +38,24 @@ char* etatnavire(ETAT_NAVIRE etat)
     }
 }
 
+int TempsAttente(TYPE_NAVIRE type)
+{
+    switch (type)
+    {
+        case PASSAGER:
+            return 10; 
+        case MARCHANDISE:
+            return 15; 
+        case PETROLIER:
+            return 15; 
+        case YACHT:
+            return 5; 
+        default:
+            return 0; 
+    }
+}
+
+
 Quai* createQuai(int numero, float taille, float profondeur, TYPE_NAVIRE type_autorise, int capacite_max) 
 {
     Quai* quai = malloc(sizeof(Quai));
@@ -81,6 +99,7 @@ int accosterNavireQuai(Quai* quai, Navire* navire)
 	navire->suiv = quai->attente;
 	quai->attente = navire;
 	navire->etat = ACCOSTE;
+	navire->temps_restant = TempsAttente(navire->type);
 	printf("Navire %d ajouté au quai %d.\n", navire->identifiant, quai->numero);
     return 1;
 }
@@ -104,37 +123,51 @@ void afficherQuai(Quai* quai)
 	}
 }
 
-int quitterQuai(Quai* quai, int identifiant)
+void quitterQuai(Quai* quai)
 {
 	if(quai == NULL || quai->attente == NULL)
 	{
-		printf("Aucun navire à retirer dans le quai %d.\n", quai->numero);
-        return 0;
+        return;
 	}
 
 	Navire* tmp = quai->attente;
 	Navire* ptmp = NULL;
 	while(tmp != NULL)
 	{
-		if(tmp->identifiant == identifiant)
-		{
-			if(ptmp != NULL)
-			{
-				ptmp->suiv=tmp->suiv;
-			}
-			else
-			{
-				quai->attente=tmp->suiv;
-			}
-			printf("Navire %d a quitté le quai %d.\n", identifiant, quai->numero);
-            free(tmp); 
-            return 1;
-		}
+		tmp->temps_restant--;
+
+        if (tmp->temps_restant <= 0) // Navire doit partir
+        {
+            printf("Navire %d quitte le quai %d.\n", tmp->identifiant, quai->numero);
+            if (ptmp == NULL)
+            {
+                quai->attente = tmp->suiv;
+            }
+            else
+            {
+                ptmp->suiv = tmp->suiv;
+            }
+            Navire* to_free = tmp;
+            tmp = tmp->suiv;
+            free(to_free);
+        }
+		// if(tmp->identifiant == identifiant)
+		// {
+		// 	if(ptmp != NULL)
+		// 	{
+		// 		ptmp->suiv=tmp->suiv;
+		// 	}
+		// 	else
+		// 	{
+		// 		quai->attente=tmp->suiv;
+		// 	}
+		// 	printf("Navire %d a quitté le quai %d.\n", identifiant, quai->numero);
+  //           free(tmp); 
+  //           return 1;
+		// }
 		ptmp=tmp;
 		tmp=tmp->suiv;
 	}
-	printf("Navire %d introuvable dans le quai %d.\n", identifiant, quai->numero);
-    return 0;
 }
 
 int attenteAccoster(Quai* quai, Navire* navire)
@@ -182,6 +215,24 @@ void afficheAttente(Quai* quai)
         temp = temp->suiv;
     }
 }
+
+
+// faire un quai automatique 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // Navire* createNavire(int id, TYPE_NAVIRE type, float capacite) 
 // {

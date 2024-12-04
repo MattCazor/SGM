@@ -1,10 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
 #include "quai.h"
-#include "menuquai.h"
 
+#define TYPE_NAVIRE 4
 #define NB_QUAIS 4
 
 int main(void)
@@ -14,101 +15,61 @@ int main(void)
     quai[1] = createQuai(1, 400.0, 15.0, PETROLIER, 2);   
     quai[2] = createQuai(2, 200.0, 10.0, PASSAGER, 3);    
     quai[3] = createQuai(3, 100.0, 8.0, YACHT, 4);
-	int choix;
-	do
-    {
-    	afficheMenu();
-	    scanf("%d", &choix);
+	srand(time(NULL));
+	while(1)
+	{
+		// fonction créant les navires via Matt
+		// pour le code ->
+		Navire* navire = malloc(sizeof(Navire));
+        if (navire == NULL)
+        {
+            printf("Erreur d'allocation mémoire pour le navire !\n");
+            continue;
+        }
 
-	    Navire* navire = NULL;
-	    int identifiant;
-        int numero;
+        
+        navire->identifiant = rand() % 1000 + 1;
 
-	    switch(choix)
-	    {
-	    	case 1:
-			    printf("Entrez l'ID du navire à ajouter : \n");
-			    scanf("%d", &identifiant);
+        
+        navire->type = rand() % TYPE_NAVIRE;
 
-			    navire = malloc(sizeof(Navire));
-			    if (navire == NULL) 
-			    {
-			        printf("Erreur d'allocation mémoire pour le navire !\n");
-			        continue;
-			    }
-			    navire->identifiant = identifiant;
-			    printf("Entrez le type du navire (1: Marchandise, 2: Pétrolier, 3: Passager, 4: Yacht) : \n");
-			    int type;
-			    scanf("%d", &type);
-			    if (type < 1 || type > 4) 
-			    {
-			        printf("Type de navire invalide.\n");
-			        free(navire);
-			        continue;
-			    }
-			    navire->type = (TYPE_NAVIRE)type;
-			    printf("Entrez la capacité de chargement du navire (en tonnes) : \n");
-			    scanf("%f", &navire->capacite_chargement);
-			    navire->etat = EN_MER;
-			    navire->suiv = NULL;
-			    printf("Entrez l'ID du quai :\n");
-			    scanf("%d", &numero);
+        
+        navire->capacite_chargement = (rand() % 451) + 50; 
 
-			    if (numero < 1 || numero > 4) 
-			    {
-			        printf("Quai invalide.\n");
-			        free(navire);
-			        continue;
-			    }
+        navire->etat = EN_MER;
+        navire->suiv = NULL;
 
-			    accosterNavireQuai(quai[numero - 1], navire);
-			    break;
+        int numero = -1;
+        switch(navire->type)
+        {
+        	case MARCHANDISE: 
+        		numero = 1; 
+        		break;
+            case PETROLIER: 
+            	numero = 2;
+            	break;
+            case PASSAGER: 
+            	numero = 3; 
+            	break;
+            case YACHT: 
+            	numero = 4; 
+            	break;
+            default: 
+            	break;
+        }
+        if(numero != -1)
+        {
+        	accosterNavireQuai(quai[numero - 1], navire);
+        }
+        else
+        {
+        	free(navire);
+        }
 
-            case 2:
-                printf("Entrez l'ID du quai :\n");
-                scanf("%d", &numero);
-
-                if (numero < 1 || numero > 4) {
-                    printf("Quai invalide.\n");
-                    continue;
-                }
-
-                afficherQuai(quai[numero - 1]);
-                break;
-            
-            case 3:
-			    printf("Entrez l'ID du navire à retirer : \n");
-			    scanf("%d", &identifiant);
-			    printf("Entrez l'ID du quai : \n");
-			    scanf("%d", &numero);
-
-			    if (numero < 1 || numero > 4) {
-			        printf("Quai invalide.\n");
-			        continue;
-			    }
-
-			    quitterQuai(quai[numero - 1], identifiant);
-			    break;
-
-			case 4:
-			    printf("Entrez l'ID du quai : \n");
-			    scanf("%d", &numero);
-
-			    if (numero < 1 || numero > 4) {
-			        printf("Quai invalide.\n");
-			        continue;
-			    }
-
-			    afficheAttente(quai[numero - 1]);
-			    break;
-
-
-            case 5:
-                printf("Au revoir !\n");
-                break;
-            default:
-                printf("Option invalide. Réessayez.\n");
-	    }
-
-    }while (choix != 5);
+        for (int i = 0; i < NB_QUAIS; i++) 
+        {
+            afficherQuai(quai[i]);
+        }
+        sleep(5);
+	}
 }
