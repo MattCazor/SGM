@@ -5,6 +5,7 @@
 #include "quai.h"
 #include "menuquai.h"
 #include "bateau.h"
+#include "sauvegarde.h"
 
 #define NB_QUAIS 4
 
