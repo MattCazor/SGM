@@ -4,11 +4,21 @@
 
 #include "quai.h"
 #include "menuquai.h"
+#include "bateau.h"
 
 #define NB_QUAIS 4
 
 int main(void)
 {
+	initialise_listes();
+    for (int i = 0; i < 10; i++)
+    {
+        newBoat(ALEATOIRE, 0);
+    }
+
+    afficher_liste_bateau(Liste_bateau);
+    afficher_mouillage(mouillage);
+
 	Quai* quai[NB_QUAIS];
 	quai[0] = createQuai(0, 300.0, 12.0, MARCHANDISE, 2); 
     quai[1] = createQuai(1, 400.0, 15.0, PETROLIER, 2);   
@@ -50,7 +60,7 @@ int main(void)
 			    printf("Entrez la capacité de chargement du navire (en tonnes) : \n");
 			    scanf("%f", &navire->capacite_chargement);
 			    navire->etat = EN_MER;
-			    navire->suiv = NULL;
+			    navire->suivant = NULL;
 			    printf("Entrez l'ID du quai :\n");
 			    scanf("%d", &numero);
 
