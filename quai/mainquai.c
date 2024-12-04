@@ -4,12 +4,27 @@
 #include <time.h>
 
 #include "quai.h"
+<<<<<<< HEAD
+=======
+#include "menuquai.h"
+#include "bateau.h"
+#include "sauvegarde.h"
+>>>>>>> cf781ca6bbe3038ec4aa8bcc0a5288d677fa3a34
 
 #define TYPE_NAVIRE 4
 #define NB_QUAIS 4
 
 int main(void)
 {
+	initialise_listes();
+    for (int i = 0; i < 10; i++)
+    {
+        newBoat(ALEATOIRE, 0);
+    }
+
+    afficher_liste_bateau(Liste_bateau);
+    afficher_mouillage(mouillage);
+
 	Quai* quai[NB_QUAIS];
 	quai[0] = createQuai(0, 300.0, 12.0, MARCHANDISE, 1); 
     quai[1] = createQuai(1, 400.0, 15.0, PETROLIER, 1s);   
@@ -33,8 +48,34 @@ int main(void)
         
         navire->type = rand() % TYPE_NAVIRE;
 
+<<<<<<< HEAD
         
         navire->capacite_chargement = (rand() % 451) + 50; 
+=======
+			    navire = malloc(sizeof(Navire));
+			    if (navire == NULL) 
+			    {
+			        printf("Erreur d'allocation mémoire pour le navire !\n");
+			        continue;
+			    }
+			    navire->identifiant = identifiant;
+			    printf("Entrez le type du navire (1: Marchandise, 2: Pétrolier, 3: Passager, 4: Yacht) : \n");
+			    int type;
+			    scanf("%d", &type);
+			    if (type < 1 || type > 4) 
+			    {
+			        printf("Type de navire invalide.\n");
+			        free(navire);
+			        continue;
+			    }
+			    navire->type = (TYPE_NAVIRE)type;
+			    printf("Entrez la capacité de chargement du navire (en tonnes) : \n");
+			    scanf("%f", &navire->capacite_chargement);
+			    navire->etat = EN_MER;
+			    navire->suivant = NULL;
+			    printf("Entrez l'ID du quai :\n");
+			    scanf("%d", &numero);
+>>>>>>> cf781ca6bbe3038ec4aa8bcc0a5288d677fa3a34
 
         navire->etat = EN_MER;
         navire->suiv = NULL;

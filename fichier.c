@@ -38,6 +38,12 @@ typedef struct Quai
     Quai *suivant;
 } Quai;
 
+typedef struct Mouillage
+{
+    int capacité;
+    Navire *premier;
+} Mouillage;
+
 typedef struct liste_passager liste_passager;
 struct liste_passager
 {
@@ -77,6 +83,17 @@ if (saveNavire(liste, "navires.txt")) {
     } else {
         printf("Erreur lors de la sauvegarde des données.\n");
     }
+
+Quai*liste=NULL;
+
+
+
+if (saveQuais(liste, "quais.txt")) {
+        printf("Les données des quais ont été sauvegardées avec succès.\n");
+    } else {
+        printf("Erreur lors de la sauvegarde des données.\n");
+    }
+
   
 
     return 0;
@@ -153,9 +170,4 @@ int saveQuais(Quai *liste, char*quai){
     fclose(fichier);
     return 1; 
 
-}
-
-
-
-
-
+} 

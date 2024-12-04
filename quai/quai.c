@@ -89,14 +89,14 @@ int accosterNavireQuai(Quai* quai, Navire* navire)
 	while(temp != NULL)
 	{
 		c=c+1;
-		temp=temp->suiv;
+		temp=temp->suivant;
 	}
 	if(c >= quai->capacite_max)
 	{
 		printf("Quai %d est plein. Impossible d'ajouter un navire\n", quai->numero);
         return attenteAccoster(quai, navire);
 	}
-	navire->suiv = quai->attente;
+	navire->suivant = quai->attente;
 	quai->attente = navire;
 	navire->etat = ACCOSTE;
 	navire->temps_restant = TempsAttente(navire->type);
@@ -115,7 +115,7 @@ void afficherQuai(Quai* quai)
 	while(temp != NULL)
 	{
 		printf("Navire\nIdentifiant: %d,\n Type: %s,\n État: %s,\n Capacité: %.2f tonnes\n", temp->identifiant, typenavire(temp->type), etatnavire(temp->etat), temp->capacite_chargement);
-		temp = temp->suiv;
+		temp = temp->suivant;
 	}
 	if(quai->attente == NULL)
 	{
@@ -134,6 +134,7 @@ void quitterQuai(Quai* quai)
 	Navire* ptmp = NULL;
 	while(tmp != NULL)
 	{
+<<<<<<< HEAD
 		tmp->temps_restant--;
 
         if (tmp->temps_restant <= 0) // Navire doit partir
@@ -165,8 +166,24 @@ void quitterQuai(Quai* quai)
   //           free(tmp); 
   //           return 1;
 		// }
+=======
+		if(tmp->identifiant == identifiant)
+		{
+			if(ptmp != NULL)
+			{
+				ptmp->suivant=tmp->suivant;
+			}
+			else
+			{
+				quai->attente=tmp->suivant;
+			}
+			printf("Navire %d a quitté le quai %d.\n", identifiant, quai->numero);
+            free(tmp); 
+            return 1;
+		}
+>>>>>>> cf781ca6bbe3038ec4aa8bcc0a5288d677fa3a34
 		ptmp=tmp;
-		tmp=tmp->suiv;
+		tmp=tmp->suivant;
 	}
 }
 
@@ -179,17 +196,17 @@ int attenteAccoster(Quai* quai, Navire* navire)
 	if(quai->attente == NULL)
 	{
 		quai->attente = navire;
-		navire->suiv = NULL;
+		navire->suivant = NULL;
 	}
 	else
 	{
 		Navire* temp = quai->attente;
-		while(temp->suiv != NULL)
+		while(temp->suivant != NULL)
 		{
-			temp = temp->suiv;
+			temp = temp->suivant;
 		}
-		temp->suiv = navire;
-		navire->suiv = NULL;
+		temp->suivant = navire;
+		navire->suivant = NULL;
 	}
 	printf("Navire %d ajouté en attente dans le quai %d.\n", navire->identifiant, quai->numero);
     return 1;
@@ -212,7 +229,7 @@ void afficheAttente(Quai* quai)
             break;
     	}
         printf(" - Navire ID : %d, Type : %s, État : %s, Capacité : %.2f\n", temp->identifiant, typenavire(temp->type), etatnavire(temp->etat), temp->capacite_chargement);
-        temp = temp->suiv;
+        temp = temp->suivant;
     }
 }
 

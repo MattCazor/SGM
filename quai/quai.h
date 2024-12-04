@@ -1,14 +1,9 @@
 #ifndef QUAI_H
 #define QUAI_H 
 
-typedef enum 
-{
-    PASSAGER,
-    MARCHANDISE,
-    PETROLIER,
-    YACHT
-} TYPE_NAVIRE;
+#include "structures.h"
 
+<<<<<<< HEAD
 typedef enum 
 {
     EN_MER,
@@ -37,6 +32,8 @@ struct Quai
     int capacite_max; 
     Navire* attente;        
 };
+=======
+>>>>>>> cf781ca6bbe3038ec4aa8bcc0a5288d677fa3a34
  
 char* typenavire(TYPE_NAVIRE type); 
 char* etatnavire(ETAT_NAVIRE etat);
@@ -46,7 +43,7 @@ int accosterNavireQuai(Quai* quai, Navire* navire);
 void afficherQuai(Quai* quai);
 void quitterQuai(Quai* quai);
 int attenteAccoster(Quai* quai, Navire* navire);
-// void afficheAttente(Quai* quai);
+void afficheAttente(Quai* quai);
 // Navire* createNavire(int id, TYPE_NAVIRE type, float capacite);
 
 #endif
