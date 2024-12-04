@@ -35,6 +35,7 @@ typedef struct Quai
     float profondeur;
     TYPE_NAVIRE type_autorise;
     int capacite_max;
+    Quai *suivant;
 } Quai;
 
 typedef struct liste_passager liste_passager;
@@ -65,6 +66,7 @@ typedef struct liste_marchandise
 const char *typeNavireEnChaine(TYPE_NAVIRE type);
 int saveNavire(Navire *liste,char*navire);
 const char *etatNavireToString(ETAT_NAVIRE etat);
+int saveQuais(Quai *liste, char*quai);
 
 int main(void){
 
@@ -99,6 +101,16 @@ const char *etatNavireEnChaine(ETAT_NAVIRE etat){
     }
 }
 
+const char *typeNavireAutoriseEnChaine(TYPE_NAVIRE type_autorise){
+    switch (type_autorise) {
+        case PASSAGER: return "PASSAGER";
+        case MARCHANDISE: return "MARCHANDISE";
+        case PETROLIER: return "PETROLIER";
+        case YACHT: return "YACHT";
+        default: return "INCONNU";
+    }
+}
+
 int saveNavire(Navire *liste,char*navire){
     
     FILE*fichier=NULL;
@@ -120,4 +132,30 @@ int saveNavire(Navire *liste,char*navire){
     return 1; 
 
 }
+
+int saveQuais(Quai *liste, char*quai){
+    
+    FILE*fichier=NULL;
+    fichier=fopen("quais.txt","w");
+
+    if(fichier==NULL){
+        printf("Impossible d'ouvrir ce fichier\n");
+
+        return 0;
+    }
+
+    Quai*tmp=liste;
+
+    while(tmp!=NULL){
+        fprintf(fichier,"numero:%d, taille:%.2f, profondeur:%.2f, type autorisé:%s, capacité maximale:%d\n",tmp->numero,tmp->taille, tmp->profondeur,typeNavireAutoriseEnChaine(tmp->type_autorise),tmp->capacite_max);
+        tmp=tmp->suivant;
+    }
+    fclose(fichier);
+    return 1; 
+
+}
+
+
+
+
 

@@ -11,8 +11,8 @@
 int main(void)
 {
 	Quai* quai[NB_QUAIS];
-	quai[0] = createQuai(0, 300.0, 12.0, MARCHANDISE, 2); 
-    quai[1] = createQuai(1, 400.0, 15.0, PETROLIER, 2);   
+	quai[0] = createQuai(0, 300.0, 12.0, MARCHANDISE, 1); 
+    quai[1] = createQuai(1, 400.0, 15.0, PETROLIER, 1s);   
     quai[2] = createQuai(2, 200.0, 10.0, PASSAGER, 3);    
     quai[3] = createQuai(3, 100.0, 8.0, YACHT, 4);
 	srand(time(NULL));

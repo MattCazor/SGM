@@ -95,7 +95,7 @@ void afficherQuai(Quai* quai)
 	Navire* temp = quai->attente;
 	while(temp != NULL)
 	{
-		printf("Navire\n identifiant: %d\n, Type: %s\n, État: %s\n, Capacité: %.2f\n tonnes\n", temp->identifiant, typenavire(temp->type), etatnavire(temp->etat), temp->capacite_chargement);
+		printf("Navire\nIdentifiant: %d,\n Type: %s,\n État: %s,\n Capacité: %.2f tonnes\n", temp->identifiant, typenavire(temp->type), etatnavire(temp->etat), temp->capacite_chargement);
 		temp = temp->suiv;
 	}
 	if(quai->attente == NULL)
