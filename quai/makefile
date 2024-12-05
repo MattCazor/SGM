@@ -12,8 +12,8 @@ bateau.o : bateau.c
 sauvegarde.o : sauvegarde.c
 	gcc -g -Wall -c sauvegarde.c
 
-mainquai : mainquai.o menuquai.o quai.o bateau.o sauvegarde.o
-	gcc -o mainquai mainquai.o menuquai.o quai.o bateau.o sauvegarde.o
+mainquai : mainquai.o quai.o bateau.o sauvegarde.o
+	gcc -o mainquai mainquai.o quai.o bateau.o sauvegarde.o
 
 
 clean :
