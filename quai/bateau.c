@@ -241,54 +241,12 @@ void tri_mouillage(Mouillage *mouillage, Quai *quai)
         enleve_mouillage(tmp->identifiant);
         newBoat(ALEATOIRE, 0);
     }
+    else{
 
-    // switch (quai->type_autorise)
-    // {
-    // case PASSAGER:
-    //     while(tmp != NULL && tmp->type != PASSAGER ){
-    //         tmp=tmp->mouillage_suiv;
-    //     }
-    //     if(tmp != NULL){
-    //         accosterNavireQuai(quai, tmp);
-    //         enleve_mouillage(tmp->identifiant);
-    //         newBoat(ALEATOIRE, 0);
-    //     }
-    //     break;
+    }
+}
 
-    // case MARCHANDISE:
-    //     while(tmp != NULL && tmp->type != MARCHANDISE ){
-    //         tmp=tmp->mouillage_suiv;
-    //     }
-    //     if(tmp != NULL){
-    //         accosterNavireQuai(quai, tmp);
-    //         enleve_mouillage(tmp->identifiant);
-    //         newBoat(ALEATOIRE, 0);
-    //     }
-    //     break;
-
-    // case PETROLIER:
-    //     while(tmp != NULL && tmp->type != PETROLIER ){
-    //         tmp=tmp->mouillage_suiv;
-    //     }
-    //     if(tmp != NULL){
-    //         accosterNavireQuai(quai, tmp);
-    //         enleve_mouillage(tmp->identifiant);
-    //         newBoat(ALEATOIRE, 0);
-    //     }
-    //     break;
-
-    // case YACHT:
-    //     while(tmp != NULL && tmp->type != YACHT ){
-    //         tmp=tmp->mouillage_suiv;
-    //     }
-    //     if(tmp != NULL){
-    //         accosterNavireQuai(quai, tmp);
-    //         enleve_mouillage(tmp->identifiant);
-    //         newBoat(ALEATOIRE, 0);
-    //     }
-    //     break;
-
-    // default:
-    //     break;
-    // }
+Quai* test_emplacement_vide(liste_bateau* Liste){
+    Quai *tmp=Liste->premier;
+    
 }
