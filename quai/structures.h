@@ -28,6 +28,7 @@ struct Navire
     Navire *precedent;
     Navire *suivant;
     Navire *mouillage_suiv;
+    Navire *quai_suiv;
 };
 
 typedef struct Quai Quai;
@@ -64,8 +65,15 @@ struct id_dispo
     int id_yacht;
 };
 
+typedef struct liste_quai liste_quai;
+struct liste_quai{
+    Quai *prmeier;
+    Quai *dernier;
+};
+
 liste_bateau *Liste_bateau;
 Mouillage *mouillage;
 id_dispo *Id_Dispo;
+liste_quai *Liste_quai;
 
 #endif
