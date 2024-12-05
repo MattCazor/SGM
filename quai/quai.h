@@ -3,38 +3,6 @@
 
 #include "structures.h"
 
-<<<<<<< HEAD
-typedef enum 
-{
-    EN_MER,
-    ACCOSTE,
-    EN_ATTENTE
-} ETAT_NAVIRE;
-
-typedef struct Navire Navire;
-struct Navire
-{
-    int identifiant;            
-    TYPE_NAVIRE type;           
-    ETAT_NAVIRE etat;           
-    float capacite_chargement;  
-    int temps_restant;
-    Navire* suiv;     
-};
-
-typedef struct Quai Quai;
-struct Quai
-{
-    int numero;
-    float taille;              
-    float profondeur;            
-    TYPE_NAVIRE type_autorise;   
-    int capacite_max; 
-    Navire* attente;        
-};
-=======
->>>>>>> cf781ca6bbe3038ec4aa8bcc0a5288d677fa3a34
- 
 char* typenavire(TYPE_NAVIRE type); 
 char* etatnavire(ETAT_NAVIRE etat);
 int TempsAttente(TYPE_NAVIRE type_navire);

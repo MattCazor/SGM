@@ -3,6 +3,7 @@
 #include <string.h>
 
 #include "quai.h"
+#include "structures.h"
 
 #define NB_QUAIS 4
 
@@ -99,7 +100,7 @@ int accosterNavireQuai(Quai* quai, Navire* navire)
 	navire->suivant = quai->attente;
 	quai->attente = navire;
 	navire->etat = ACCOSTE;
-	navire->temps_restant = TempsAttente(navire->type);
+	// navire->temps_restant = TempsAttente(navire->type);
 	printf("Navire %d ajouté au quai %d.\n", navire->identifiant, quai->numero);
     return 1;
 }
@@ -134,54 +135,20 @@ void quitterQuai(Quai* quai)
 	Navire* ptmp = NULL;
 	while(tmp != NULL)
 	{
-<<<<<<< HEAD
-		tmp->temps_restant--;
-
-        if (tmp->temps_restant <= 0) // Navire doit partir
-        {
-            printf("Navire %d quitte le quai %d.\n", tmp->identifiant, quai->numero);
-            if (ptmp == NULL)
-            {
-                quai->attente = tmp->suiv;
-            }
-            else
-            {
-                ptmp->suiv = tmp->suiv;
-            }
-            Navire* to_free = tmp;
-            tmp = tmp->suiv;
-            free(to_free);
-        }
 		// if(tmp->identifiant == identifiant)
 		// {
 		// 	if(ptmp != NULL)
 		// 	{
-		// 		ptmp->suiv=tmp->suiv;
+		// 		ptmp->suivant=tmp->suivant;
 		// 	}
 		// 	else
 		// 	{
-		// 		quai->attente=tmp->suiv;
+		// 		quai->attente=tmp->suivant;
 		// 	}
 		// 	printf("Navire %d a quitté le quai %d.\n", identifiant, quai->numero);
-  //           free(tmp); 
-  //           return 1;
+        //     free(tmp); 
+        //     return 1;
 		// }
-=======
-		if(tmp->identifiant == identifiant)
-		{
-			if(ptmp != NULL)
-			{
-				ptmp->suivant=tmp->suivant;
-			}
-			else
-			{
-				quai->attente=tmp->suivant;
-			}
-			printf("Navire %d a quitté le quai %d.\n", identifiant, quai->numero);
-            free(tmp); 
-            return 1;
-		}
->>>>>>> cf781ca6bbe3038ec4aa8bcc0a5288d677fa3a34
 		ptmp=tmp;
 		tmp=tmp->suivant;
 	}
