@@ -73,6 +73,7 @@ const char *typeNavireEnChaine(TYPE_NAVIRE type);
 int saveNavire(Navire *liste,char*navire);
 const char *etatNavireToString(ETAT_NAVIRE etat);
 int saveQuais(Quai *liste, char*quai);
+int chargementNavire(Navire *liste, char *navire);
 
 int main(void){
 
@@ -84,15 +85,17 @@ if (saveNavire(liste, "navires.txt")) {
         printf("Erreur lors de la sauvegarde des données.\n");
     }
 
+chargementNavire(liste,"navires.txt");
+
 Quai*liste=NULL;
-
-
 
 if (saveQuais(liste, "quais.txt")) {
         printf("Les données des quais ont été sauvegardées avec succès.\n");
     } else {
         printf("Erreur lors de la sauvegarde des données.\n");
     }
+
+
 
   
 
@@ -171,3 +174,25 @@ int saveQuais(Quai *liste, char*quai){
     return 1; 
 
 } 
+
+int chargementNavire(Navire *liste, char *navire){
+
+    FILE *fichier=NULL;
+    fichier=fopen("navires.txt","r");
+
+    if(liste==NULL){
+        printf("erreur lors de l'ouverture du fichier\n");
+        return 0;
+    }
+
+    Navire *tmp=liste;
+
+    while(tmp!=NULL){
+        rewind(fichier);
+        fscanf(fichier,"id:%d, type:%s, état:%s, capacité de chargement:%.2f\n",tmp->identifiant,typeNavireEnChaine(tmp->type),etatNavireEnChaine(tmp->etat));
+        printf("id:%d, type:%s, état:%s, capacité de chargement:%.2f\n",tmp->identifiant,typeNavireEnChaine(tmp->type),etatNavireEnChaine(tmp->etat));
+        tmp=tmp->suivant;
+    }
+    fclose(fichier);
+    return 1;
+}
