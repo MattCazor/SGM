@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-mainquai : mainquai.o quai.o
-	gcc -o mainquai mainquai.o quai.o
-=======
->>>>>>> cf781ca6bbe3038ec4aa8bcc0a5288d677fa3a34
+
 
 mainquai.o : mainquai.c
 	gcc -g -Wall -c mainquai.c

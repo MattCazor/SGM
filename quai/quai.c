@@ -142,14 +142,14 @@ void quitterQuai(Quai* quai)
             printf("Navire %d quitte le quai %d.\n", tmp->identifiant, quai->numero);
             if (ptmp == NULL)
             {
-                quai->attente = tmp->suiv;
+                quai->attente = tmp->suivant;
             }
             else
             {
-                ptmp->suiv = tmp->suiv;
+                ptmp->suivant = tmp->suivant;
             }
             Navire* to_free = tmp;
-            tmp = tmp->suiv;
+            tmp = tmp->suivant;
             free(to_free);
         }
 		// if(tmp->identifiant == identifiant)
