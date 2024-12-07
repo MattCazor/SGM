@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
+#include <unistd.h>
 
 typedef enum
 {
@@ -81,11 +82,16 @@ Mouillage zoneMouillage = {0, NULL};
 Navire *naviresEnMer = NULL;
 Quai *listeQuais = NULL;
 
-if (savePort(listeQuais, &zoneMouillage, naviresEnMer, "port.txt")) {
-    printf("Les données ont été sauvegardées.\n");
-} else {
-    printf("Erreur lors de la sauvegarde des données.\n");
-}
+    while (1) {
+
+        if (savePort(listeQuais, &zoneMouillage, naviresEnMer, "port.txt")) {
+            printf("Les données ont été sauvegardées.\n");
+        } else {
+             printf("Erreur lors de la sauvegarde des données.\n");
+        }
+        sleep(3);
+    }
+    
     return 0;
 }
 
