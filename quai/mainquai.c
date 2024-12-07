@@ -12,13 +12,12 @@
 #define TYPE_NAVIRE 4
 #define NB_QUAIS 4
 
-<<<<<<< HEAD
-=======
+
 // liste_bateau *Liste_bateau = NULL;  // Définition
 // Mouillage *mouillage = NULL;          // Définition
 // id_dispo *Id_Dispo = NULL;            // Définition
 // liste_quai *Liste_quai = NULL;
->>>>>>> 5fad7b67911f8807727d2accdb6e5f87ab413c83
+
 
 int main(void)
 {
