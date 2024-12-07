@@ -71,6 +71,18 @@ Quai* createQuai(int numero, float taille, float profondeur, TYPE_NAVIRE type_au
     quai->type_autorise = type_autorise;
     quai->capacite_max = capacite_max;
     quai->attente = NULL; 
+	if (Liste_quai->premier == NULL)
+    {
+        Liste_quai->premier = quai;
+        Liste_quai->dernier = quai;
+        quai->precedent = NULL;
+    }
+    else
+    {
+        quai->precedent = Liste_quai->dernier;
+        quai->precedent->suivant = quai;
+        Liste_quai->dernier = quai;
+    }
     return quai;
 }
 

@@ -18,4 +18,5 @@ mainquai : mainquai.o quai.o bateau.o sauvegarde.o
 
 clean :
 	rm mainquai *.o
+	rm quai *.o
 
