@@ -40,9 +40,11 @@ struct Quai
     float profondeur;            
     TYPE_NAVIRE type_autorise;   
     int capacite_max; 
+    Navire *navire;
     Navire* attente;   
     Quai *suivant;  
     Quai *precedent;   
+    struct Quai *suivant;
 };
 
 typedef struct Mouillage
