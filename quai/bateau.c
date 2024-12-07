@@ -234,26 +234,18 @@ void enleve_mouillage(int id)
 
 void tri_mouillage(Navire *bateau, Quai *quai)
 {
-    // printf("dans trie mouillage\n");
     if (quai != NULL)
     {
-        // printf("quai != NULL\n");
         Navire *tmp = bateau;
-        // printf("tmp id %d\n", tmp->identifiant);
         while (tmp != NULL && tmp->type != quai->type_autorise && place_dans_quai(quai) < quai->capacite_max)
         {
             tmp = tmp->mouillage_suiv;
-            // printf("type tmp %u, type quai %u\n", tmp->type, quai->type_autorise);
         }
-        // printf("type tmp %u\n", tmp->type);
-        // printf("type autorise quai %u\n", quai->type_autorise);
         if (tmp != NULL && tmp->type == quai->type_autorise && place_dans_quai(quai) < quai->capacite_max)
         {
-            // printf("dans le if\n");
             if (accosterNavireQuai(quai, tmp) != 0)
             {
                 enleve_mouillage(tmp->identifiant);
-                // afficher_mouillage(mouillage);
                 newBoat(ALEATOIRE, 0);
             }
             else
@@ -264,18 +256,7 @@ void tri_mouillage(Navire *bateau, Quai *quai)
         }
         else
         {
-            // if (tmp == NULL)
-            // {
-            //     printf("tmp == NULL\n");
-            //     return;
-            // }
-            // printf("dans le else\n");
             tri_mouillage(bateau, quai->suivant);
-            // Quai *quai_dispo = test_emplacement_vide(Liste_quai);
-            // if (quai_dispo != NULL && quai_dispo != quai)
-            // {
-            //     tri_mouillage(mouillage, quai_dispo);
-            // }
         }
     }
     else
@@ -291,18 +272,9 @@ void tri_mouillage(Navire *bateau, Quai *quai)
 
 Quai *test_emplacement_vide(liste_quai *Liste)
 {
-    // Vérification de la validité de la liste
-    if (Liste == NULL || Liste->premier == NULL)
-    {
-        printf("Erreur : Liste des quais vide ou non initialisée.\n");
-        return NULL;
-    }
-
-    // Parcourir la liste des quais
     Quai *tmp = Liste->premier;
     while (tmp != NULL)
     {
-        // Compter le nombre de navires en attente sur ce quai
         Navire *nav = tmp->attente;
         int nbr = 0;
 
@@ -312,17 +284,13 @@ Quai *test_emplacement_vide(liste_quai *Liste)
             nav = nav->quai_suiv;
         }
 
-        // Vérifier si la capacité maximale n'est pas atteinte
         if (nbr < tmp->capacite_max)
         {
-            return tmp; // Retourner le quai avec de l'espace disponible
+            return tmp;
         }
 
-        // Passer au quai suivant
         tmp = tmp->suivant;
     }
-
-    // Aucun quai avec de l'espace trouvé
     return NULL;
 }
 

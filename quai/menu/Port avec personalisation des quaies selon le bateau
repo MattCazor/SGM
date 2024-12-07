@@ -1,0 +1,48 @@
+/**
+ * @brief Dessiner le port sur le côté gauche avec des quais et des bateaux personnalisés.
+ */
+void dessinePort(int largeur, int hauteur) {
+    float portLargeur = largeur * 0.4f; // Port occupe 40% de la largeur
+    float quaiHauteur = hauteur * 0.05f;
+    float yPort = hauteur * 0.1f;
+
+    // Dessiner le port
+    couleurCourante(169, 169, 169); // Gris clair pour les routes
+    rectangle(0, 0, portLargeur, hauteur * 0.5f);
+
+    // Placer les quais et leurs bateaux
+    for (int i = 0; i < 4; i++) {
+        float xQuai = portLargeur - (i + 1) * portLargeur * 0.2f;
+        float yQuai = yPort + i * quaiHauteur * 4;
+
+        couleurCourante(150, 75, 0); // Marron pour le quai
+        rectangle(xQuai, yQuai, portLargeur, yQuai + quaiHauteur);
+
+        // Placer le bateau et décorer le quai
+        switch (i) {
+            case 0: // Quai du cargo
+                dessineBateauMarchandises(xQuai + 10, yQuai + quaiHauteur, portLargeur * 0.8f, quaiHauteur * 2.5f);
+                couleurCourante(0, 255, 0); // Conteneurs
+                rectangle(xQuai + 50, yQuai + quaiHauteur, xQuai + 80, yQuai + quaiHauteur * 1.5f);
+                break;
+
+            case 1: // Quai du pétrolier
+                dessinePetrolier(xQuai + 10, yQuai + quaiHauteur, portLargeur * 0.9f, quaiHauteur * 3.0f);
+                couleurCourante(169, 169, 169); // Réservoirs
+                cercle(xQuai + 80, yQuai + quaiHauteur * 0.8f, quaiHauteur * 0.5f);
+                break;
+
+            case 2: // Quai du yacht
+                dessineYacht(xQuai + 10, yQuai + quaiHauteur, portLargeur * 0.6f, quaiHauteur * 1.5f);
+                couleurCourante(255, 215, 0); // Lampadaire
+                rectangle(xQuai + 50, yQuai + quaiHauteur, xQuai + 55, yQuai + quaiHauteur * 1.5f);
+                break;
+
+            case 3: // Quai du bateau de passagers
+                dessineBateauPassagers(xQuai + 10, yQuai + quaiHauteur, portLargeur * 0.7f, quaiHauteur * 2.0f);
+                couleurCourante(255, 255, 255); // Passerelle
+                rectangle(xQuai + 50, yQuai + quaiHauteur, xQuai + 90, yQuai + quaiHauteur * 0.5f);
+                break;
+        }
+    }
+}
