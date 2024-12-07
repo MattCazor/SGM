@@ -4,77 +4,8 @@
 #include <time.h>
 #include <unistd.h>
 
-typedef enum
-{
-    PASSAGER,
-    MARCHANDISE,
-    PETROLIER,
-    YACHT,
-} TYPE_NAVIRE;
-
-typedef enum
-{
-    EN_MER,
-    ACCOSTE,
-    EN_ATTENTE
-} ETAT_NAVIRE;
-
-typedef struct Navire
-{
-    int identifiant;
-    TYPE_NAVIRE type;
-    ETAT_NAVIRE etat;
-    float capacite_chargement;
-    struct Navire *suivant;
-} Navire;
-
-typedef struct Quai
-{
-    int numero;
-    float taille;
-    float profondeur;
-    TYPE_NAVIRE type_autorise;
-    int capacite_max;
-    Navire *navire;
-    struct Quai *suivant;
-    
-} Quai;
-
-typedef struct Mouillage
-{
-    int capacité;
-    Navire *premier;
-} Mouillage;
-
-typedef struct liste_passager liste_passager;
-struct liste_passager
-{
-    Navire *premier;
-    Navire *dernier;
-};
-
-typedef struct liste_petrolier
-{
-    Navire *premier;
-    Navire *dernier;
-} liste_petrolier;
-
-typedef struct liste_yacht
-{
-    Navire *premier;
-    Navire *dernier;
-} liste_yacht;
-
-typedef struct liste_marchandise
-{
-    Navire *premier;
-    Navire *dernier;
-} liste_marchandise;
-
-int savePort(Quai *listeQuais, Mouillage *zoneMouillage, Navire *naviresEnMer, char *port);
-const char *typeNavireEnChaine(TYPE_NAVIRE type);
-const char *etatNavireEnChaine(ETAT_NAVIRE etat);
-const char *typeNavireAutoriseEnChaine(TYPE_NAVIRE type_autorise);
+#include "sauvegarde.h"
+#include "structures.h"
 
 int main(void){
 
@@ -91,7 +22,7 @@ Quai *listeQuais = NULL;
         }
         sleep(3);
     }
-    
+
     return 0;
 }
 
