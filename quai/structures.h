@@ -25,6 +25,7 @@ struct Navire
     TYPE_NAVIRE type;
     ETAT_NAVIRE etat;
     float capacite_chargement;
+    int temps_restant;
     Navire *precedent;
     Navire *suivant;
     Navire *mouillage_suiv;
@@ -71,9 +72,9 @@ struct liste_quai{
     Quai *dernier;
 };
 
-liste_bateau *Liste_bateau;
-Mouillage *mouillage;
-id_dispo *Id_Dispo;
-liste_quai *Liste_quai;
+extern liste_bateau *Liste_bateau;  // Déclaration
+extern Mouillage *mouillage;          // Déclaration
+extern id_dispo *Id_Dispo;            // Déclaration
+extern liste_quai *Liste_quai;
 
 #endif

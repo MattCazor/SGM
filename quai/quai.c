@@ -100,7 +100,7 @@ int accosterNavireQuai(Quai* quai, Navire* navire)
 	navire->quai_suiv = quai->attente;
 	quai->attente = navire;
 	navire->etat = ACCOSTE;
-	// navire->temps_restant = TempsAttente(navire->type);
+	navire->temps_restant = TempsAttente(navire->type);
 	printf("Navire %d ajouté au quai %d.\n", navire->identifiant, quai->numero);
     return 1;
 }
@@ -111,17 +111,29 @@ void afficherQuai(Quai* quai)
 	{
 		return;
 	}
-	printf("Quai %d:\nType autorisé: %s\nCapacité max de navire: %d:\n", quai->numero, typenavire(quai->type_autorise), quai->capacite_max);
+	printf("=== Quai %d ===\n", quai->numero);
+    printf("Type autorisé: %s\n", typenavire(quai->type_autorise));
+    printf("Capacité max: %d navires\n", quai->capacite_max);
+    printf("Taille: %.2f mètres\n", quai->taille);
+    printf("Profondeur: %.2f mètres\n", quai->profondeur);
+	int c = 0;
 	Navire* temp = quai->attente;
 	while(temp != NULL)
 	{
-		printf("Navire\nIdentifiant: %d,\n Type: %s,\n État: %s,\n Capacité: %.2f tonnes\n", temp->identifiant, typenavire(temp->type), etatnavire(temp->etat), temp->capacite_chargement);
-		temp = temp->quai_suiv;
+		c=c+1;
+		printf("\nNavire:\n");
+        printf("  Identifiant: %d\n", temp->identifiant);
+        printf("  Type: %s\n", typenavire(temp->type));
+        printf("  État: %s\n", etatnavire(temp->etat));
+        printf("  Capacité: %.2f tonnes\n", temp->capacite_chargement);
+        printf("  Temps restant: %d\n", temp->temps_restant);
+        temp = temp->quai_suiv;
 	}
-	if(quai->attente == NULL)
+	if(c == 0)
 	{
-		printf("Aucun navire accosté.\n");
+		printf("\nAucun navire accosté.\n");
 	}
+
 }
 
 void quitterQuai(Quai* quai)
@@ -135,6 +147,25 @@ void quitterQuai(Quai* quai)
 	Navire* ptmp = NULL;
 	while(tmp != NULL)
 	{
+		tmp->temps_restant--;
+
+        if (tmp->temps_restant <= 0) // Navire doit partir
+        {
+            printf("Navire %d quitte le quai %d.\n", tmp->identifiant, quai->numero);
+            if (ptmp == NULL)
+            {
+                quai->attente = tmp->suivant;
+            }
+            else
+            {
+                ptmp->suivant = tmp->suivant;
+            }
+            Navire* to_free = tmp;
+            tmp = tmp->suivant;
+            free(to_free);
+        }
+
+
 		// if(tmp->identifiant == identifiant)
 		// {
 		// 	if(ptmp != NULL)

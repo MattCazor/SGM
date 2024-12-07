@@ -13,6 +13,11 @@
 #define TYPE_NAVIRE 4
 #define NB_QUAIS 4
 
+liste_bateau *Liste_bateau = NULL;  // Définition
+Mouillage *mouillage = NULL;          // Définition
+id_dispo *Id_Dispo = NULL;            // Définition
+liste_quai *Liste_quai = NULL;
+
 int main(void)
 {
 	initialise_listes();
@@ -32,48 +37,13 @@ int main(void)
 	srand(time(NULL));
 	while(1)
 	{
-		// fonction créant les navires via Matt
-		// pour le code ->
-		Navire* navire = malloc(sizeof(Navire));
-        if (navire == NULL)
+
+		Navire* navire = newBoat(ALEATOIRE, 0);
+        if (navire == NULL) 
         {
-            printf("Erreur d'allocation mémoire pour le navire !\n");
+            printf("Erreur lors de la création du navire !\n");
             continue;
         }
-
-        
-        navire->identifiant = rand() % 1000 + 1;
-
-        
-        navire->type = rand() % TYPE_NAVIRE;
-
-			    navire = malloc(sizeof(Navire));
-			    if (navire == NULL) 
-			    {
-			        printf("Erreur d'allocation mémoire pour le navire !\n");
-			        continue;
-			    }
-			    // navire->identifiant = identifiant;
-			    printf("Entrez le type du navire (1: Marchandise, 2: Pétrolier, 3: Passager, 4: Yacht) : \n");
-			    int type;
-			    scanf("%d", &type);
-			    if (type < 1 || type > 4) 
-			    {
-			        printf("Type de navire invalide.\n");
-			        free(navire);
-			        continue;
-			    }
-			    navire->type = (TYPE_NAVIRE);
-			    printf("Entrez la capacité de chargement du navire (en tonnes) : \n");
-			    scanf("%f", &navire->capacite_chargement);
-			    navire->etat = EN_MER;
-			    navire->suivant = NULL;
-			    printf("Entrez l'ID du quai :\n");
-			    // scanf("%d", &numero);
-
-        navire->etat = EN_MER;
-        navire->suivant = NULL;
-
         int numero = -1;
         switch(navire->type)
         {
@@ -94,7 +64,15 @@ int main(void)
         }
         if(numero != -1)
         {
-        	accosterNavireQuai(quai[numero - 1], navire);
+        	if(accosterNavireQuai(quai[numero - 1], navire))
+                {
+                     printf("Navire %d accosté sur le quai %d.\n", navire->identifiant, numero);
+                }
+            else
+            {
+                printf("Échec de l'accostage du navire %d sur le quai %d. Peut-être que le quai est plein.\n", navire->identifiant, numero);
+                free(navire);
+            }
         }
         else
         {
@@ -107,4 +85,5 @@ int main(void)
         }
         sleep(5);
 	}
+    return 0;
 }
