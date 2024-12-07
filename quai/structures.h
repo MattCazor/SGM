@@ -41,7 +41,8 @@ struct Quai
     TYPE_NAVIRE type_autorise;   
     int capacite_max; 
     Navire* attente;   
-    Quai *suivant;     
+    Quai *suivant;  
+    Quai *precedent;   
 };
 
 typedef struct Mouillage
@@ -68,13 +69,17 @@ struct id_dispo
 
 typedef struct liste_quai liste_quai;
 struct liste_quai{
-    Quai *prmeier;
+    Quai *premier;
     Quai *dernier;
 };
 
-extern liste_bateau *Liste_bateau;  // Déclaration
-extern Mouillage *mouillage;          // Déclaration
-extern id_dispo *Id_Dispo;            // Déclaration
-extern liste_quai *Liste_quai;
+// extern liste_bateau *Liste_bateau;  // Déclaration
+// extern Mouillage *mouillage;          // Déclaration
+// extern id_dispo *Id_Dispo;            // Déclaration
+// extern liste_quai *Liste_quai;
 
+liste_bateau *Liste_bateau;
+Mouillage *mouillage;
+id_dispo *Id_Dispo;
+liste_quai *Liste_quai;
 #endif
