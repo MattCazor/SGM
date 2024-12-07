@@ -75,13 +75,13 @@ struct liste_quai{
     Quai *dernier;
 };
 
-// extern liste_bateau *Liste_bateau;  // Déclaration
-// extern Mouillage *mouillage;          // Déclaration
-// extern id_dispo *Id_Dispo;            // Déclaration
-// extern liste_quai *Liste_quai;
+extern liste_bateau *Liste_bateau;  
+extern Mouillage *mouillage;          
+extern id_dispo *Id_Dispo;            
+extern liste_quai *Liste_quai;
 
-liste_bateau *Liste_bateau;
-Mouillage *mouillage;
-id_dispo *Id_Dispo;
-liste_quai *Liste_quai;
+// liste_bateau *Liste_bateau;
+// Mouillage *mouillage;
+// id_dispo *Id_Dispo;
+// liste_quai *Liste_quai;
 #endif

@@ -7,20 +7,20 @@
 #include "sauvegarde.h"
 #include "structures.h"
 
-int main(void) {
-    Mouillage zoneMouillage = {0, NULL};
-    Navire *naviresEnMer = NULL;
-    Quai *listeQuais = NULL;
+// int main(void) {
+//     Mouillage zoneMouillage = {0, NULL};
+//     Navire *naviresEnMer = NULL;
+//     Quai *listeQuais = NULL;
 
-    chargePort(&listeQuais, &zoneMouillage, &naviresEnMer, "port.txt");
+//     chargePort(&listeQuais, &zoneMouillage, &naviresEnMer, "port.txt");
 
-    while (1) {
-        savePort(listeQuais, &zoneMouillage, naviresEnMer, "port.txt");
-        sleep(3);
-    }
+//     while (1) {
+//         savePort(listeQuais, &zoneMouillage, naviresEnMer, "port.txt");
+//         sleep(3);
+//     }
 
-    return 0;
-}
+//     return 0;
+// }
 
 const char *typeNavireEnChaine(TYPE_NAVIRE type) {
     switch (type) {

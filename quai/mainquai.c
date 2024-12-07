@@ -12,12 +12,10 @@
 #define TYPE_NAVIRE 4
 #define NB_QUAIS 4
 
-
-// liste_bateau *Liste_bateau = NULL;  // Définition
-// Mouillage *mouillage = NULL;          // Définition
-// id_dispo *Id_Dispo = NULL;            // Définition
-// liste_quai *Liste_quai = NULL;
-
+liste_bateau *Liste_bateau = NULL;
+Mouillage *mouillage = NULL;
+id_dispo *Id_Dispo = NULL;
+liste_quai *Liste_quai = NULL;
 
 int main(void)
 {
@@ -114,5 +112,15 @@ int main(void)
     //     }
     //     sleep(5);
     // }
+    Mouillage zoneMouillage = {0, NULL};
+    Navire *naviresEnMer = NULL;
+    Quai *listeQuais = NULL;
+
+    chargePort(&listeQuais, &zoneMouillage, &naviresEnMer, "port.txt");
+
+    while (1) {
+        savePort(listeQuais, &zoneMouillage, naviresEnMer, "port.txt");
+        sleep(3);
+    }
     return 0;
 }
