@@ -242,11 +242,27 @@ void tri_mouillage(Mouillage *mouillage, Quai *quai)
         newBoat(ALEATOIRE, 0);
     }
     else{
-
+        Quai* quai_dispo= test_emplacement_vide(Liste_quai);
+        if(quai_dispo != NULL && quai_dispo != quai){
+            tri_mouillage(mouillage, quai_dispo);
+        }
     }
 }
 
 Quai* test_emplacement_vide(liste_bateau* Liste){
     Quai *tmp=Liste->premier;
-    
+    Navire *nav=tmp->attente;
+    int nbr=0;
+    for(int i=0; i<4; i++){
+        nbr=0;
+        while(tmp != NULL){
+            nbr++;
+            nav=nav->quai_suiv;
+        }
+        if(nbr< tmp->capacite_max){
+            return tmp;
+        }
+    }
+    tmp=NULL;
+    return tmp;
 }
