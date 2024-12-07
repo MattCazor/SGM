@@ -76,10 +76,6 @@ Quai* createQuai(int numero, float taille, float profondeur, TYPE_NAVIRE type_au
 
 int accosterNavireQuai(Quai* quai, Navire* navire)
 {
-	if (quai == NULL || navire == NULL)
-	{
-		return 0;
-	}
 	if(navire->type != quai->type_autorise)
 	{
 		printf("Navire %d non autorisé sur le quai %d\n", navire->identifiant, quai->numero);
@@ -95,7 +91,7 @@ int accosterNavireQuai(Quai* quai, Navire* navire)
 	if(c >= quai->capacite_max)
 	{
 		printf("Quai %d est plein. Impossible d'ajouter un navire\n", quai->numero);
-        return attenteAccoster(quai, navire);
+        return 0;
 	}
 	navire->quai_suiv = quai->attente;
 	quai->attente = navire;
@@ -111,7 +107,7 @@ void afficherQuai(Quai* quai)
 	{
 		return;
 	}
-	printf("=== Quai %d ===\n", quai->numero);
+	printf("\n=== Quai %d ===\n", quai->numero);
     printf("Type autorisé: %s\n", typenavire(quai->type_autorise));
     printf("Capacité max: %d navires\n", quai->capacite_max);
     printf("Taille: %.2f mètres\n", quai->taille);
