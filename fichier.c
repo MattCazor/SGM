@@ -24,8 +24,7 @@ typedef struct Navire
     TYPE_NAVIRE type;
     ETAT_NAVIRE etat;
     float capacite_chargement;
-    Navire *precedent;
-    Navire *suivant;
+    struct Navire *suivant;
 } Navire;
 
 typedef struct Quai
@@ -35,7 +34,9 @@ typedef struct Quai
     float profondeur;
     TYPE_NAVIRE type_autorise;
     int capacite_max;
-    Quai *suivant;
+    Navire *navire;
+    struct Quai *suivant;
+    
 } Quai;
 
 typedef struct Mouillage
@@ -69,36 +70,22 @@ typedef struct liste_marchandise
     Navire *dernier;
 } liste_marchandise;
 
+int savePort(Quai *listeQuais, Mouillage *zoneMouillage, Navire *naviresEnMer, char *port);
 const char *typeNavireEnChaine(TYPE_NAVIRE type);
-int saveNavire(Navire *liste,char*navire);
-const char *etatNavireToString(ETAT_NAVIRE etat);
-int saveQuais(Quai *liste, char*quai);
-int chargementNavire(Navire *liste, char *navire);
+const char *etatNavireEnChaine(ETAT_NAVIRE etat);
+const char *typeNavireAutoriseEnChaine(TYPE_NAVIRE type_autorise);
 
 int main(void){
 
-Navire *liste=NULL;
+Mouillage zoneMouillage = {0, NULL};
+Navire *naviresEnMer = NULL;
+Quai *listeQuais = NULL;
 
-if (saveNavire(liste, "navires.txt")) {
-        printf("Les données des navires ont été sauvegardées avec succès.\n");
-    } else {
-        printf("Erreur lors de la sauvegarde des données.\n");
-    }
-
-chargementNavire(liste,"navires.txt");
-
-Quai*liste=NULL;
-
-if (saveQuais(liste, "quais.txt")) {
-        printf("Les données des quais ont été sauvegardées avec succès.\n");
-    } else {
-        printf("Erreur lors de la sauvegarde des données.\n");
-    }
-
-
-
-  
-
+if (savePort(listeQuais, &zoneMouillage, naviresEnMer, "port.txt")) {
+    printf("Les données ont été sauvegardées.\n");
+} else {
+    printf("Erreur lors de la sauvegarde des données.\n");
+}
     return 0;
 }
 
@@ -131,68 +118,64 @@ const char *typeNavireAutoriseEnChaine(TYPE_NAVIRE type_autorise){
     }
 }
 
-int saveNavire(Navire *liste,char*navire){
+
+
+int savePort(Quai *listeQuais, Mouillage *zoneMouillage, Navire *naviresEnMer, char *port){
+
+    FILE *fichier = fopen("port.txt", "w");
+    if (fichier == NULL) {
+        printf("Erreur lors de l'ouverture du fichier.\n");
+        return 0;
+    }
+
+    if(listeQuais==NULL && zoneMouillage==NULL && naviresEnMer==NULL){
+        printf("Il n'y a aucun navire.\n");
+        fclose(fichier);
+        return 1;
+    }
+
+    fprintf(fichier, "----BATEAUX ACCOSTES----\n");
+    Quai *quai = listeQuais;
+    while (quai != NULL) {
+        fprintf(fichier,"Quais N°%d, Taille:%.2f, Profondeur:%.2f, Type autorisé:%s, Capacité maximale:%d\n",quai->numero,quai->taille, quai->profondeur,typeNavireAutoriseEnChaine(quai->type_autorise),quai->capacite_max);
+        Navire *navire = quai->navire;
+        while (navire != NULL) {
+            fprintf(fichier, "° Bateaux ID : %d, Type : %s, Etat : %s, Capacité de chargement : %.2f\n",navire->identifiant, typeNavireEnChaine(navire->type), etatNavireEnChaine(navire->etat), navire->capacite_chargement);
+            navire = navire->suivant;
+        }
+        fprintf(fichier, "\n");
+        quai = quai->suivant;
+    }
+
     
-    FILE*fichier=NULL;
-    fichier=fopen("navire.txt","w");
+    fprintf(fichier, "----BATEAUX EN ZONE DE MOUILLAGE----\n");
 
-    if(fichier==NULL){
-        printf("Impossible d'ouvrir ce fichier\n");
+    int cpt=0;
+    Navire *tmp = zoneMouillage->premier;
 
-        return 0;
-    }
-
-    Navire*tmp=liste;
-
-    while(tmp!=NULL){
-        fprintf(fichier,"id:%d, type:%s, état:%s, capacité de chargement:%.2f\n",tmp->identifiant,typeNavireEnChaine(tmp->type),etatNavireEnChaine(tmp->etat));
-        tmp=tmp->suivant;
-    }
-    fclose(fichier);
-    return 1; 
-
-}
-
-int saveQuais(Quai *liste, char*quai){
+        while (tmp) {
+            cpt++;
+            tmp = tmp->suivant;
+        }
     
-    FILE*fichier=NULL;
-    fichier=fopen("quais.txt","w");
+        if (cpt > zoneMouillage->capacité) {
+            fprintf(fichier, "Il y a trop de navires dans la zone de mouillage.\n");
+        }       
+  
+    Navire *mouillageNavire = zoneMouillage->premier;
+    while (mouillageNavire != NULL) {
+        fprintf(fichier, "° ID : %d, Type : %s, Etat : %s, Capacité de chargement : %.2f\n", mouillageNavire->identifiant, typeNavireEnChaine(mouillageNavire->type),etatNavireEnChaine(mouillageNavire->etat), mouillageNavire->capacite_chargement);
 
-    if(fichier==NULL){
-        printf("Impossible d'ouvrir ce fichier\n");
-
-        return 0;
+        mouillageNavire = mouillageNavire->suivant;
     }
 
-    Quai*tmp=liste;
-
-    while(tmp!=NULL){
-        fprintf(fichier,"numero:%d, taille:%.2f, profondeur:%.2f, type autorisé:%s, capacité maximale:%d\n",tmp->numero,tmp->taille, tmp->profondeur,typeNavireAutoriseEnChaine(tmp->type_autorise),tmp->capacite_max);
-        tmp=tmp->suivant;
-    }
-    fclose(fichier);
-    return 1; 
-
-} 
-
-int chargementNavire(Navire *liste, char *navire){
-
-    FILE *fichier=NULL;
-    fichier=fopen("navires.txt","r");
-
-    if(liste==NULL){
-        printf("erreur lors de l'ouverture du fichier\n");
-        return 0;
+    fprintf(fichier, "----BATEAUX EN MER----\n");
+    Navire *enMerNavire = naviresEnMer;
+    while (enMerNavire != NULL) {
+        fprintf(fichier, "° ID : %d, Type : %s, Etat : %s, Capacité de chargement : %.2f\n",enMerNavire->identifiant, typeNavireEnChaine(enMerNavire->type),etatNavireEnChaine(enMerNavire->etat), enMerNavire->capacite_chargement);
+        enMerNavire = enMerNavire->suivant;
     }
 
-    Navire *tmp=liste;
-
-    while(tmp!=NULL){
-        rewind(fichier);
-        fscanf(fichier,"id:%d, type:%s, état:%s, capacité de chargement:%.2f\n",tmp->identifiant,typeNavireEnChaine(tmp->type),etatNavireEnChaine(tmp->etat));
-        printf("id:%d, type:%s, état:%s, capacité de chargement:%.2f\n",tmp->identifiant,typeNavireEnChaine(tmp->type),etatNavireEnChaine(tmp->etat));
-        tmp=tmp->suivant;
-    }
     fclose(fichier);
     return 1;
 }
