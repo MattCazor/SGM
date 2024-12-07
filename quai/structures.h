@@ -44,7 +44,7 @@ struct Quai
     Navire* attente;   
     Quai *suivant;  
     Quai *precedent;   
-    struct Quai *suivant;
+    
 };
 
 typedef struct Mouillage
