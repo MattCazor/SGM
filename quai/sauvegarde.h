@@ -3,9 +3,11 @@
 
 #include "structures.h"
 
+int savePort(Quai *listeQuais, Mouillage *zoneMouillage, Navire *naviresEnMer, char *port);
 const char *typeNavireEnChaine(TYPE_NAVIRE type);
-int saveNavire(Navire *liste,char*navire);
-const char *etatNavireToString(ETAT_NAVIRE etat);
-int saveQuais(Quai *liste, char*quai);
+const char *etatNavireEnChaine(ETAT_NAVIRE etat);
+const char *typeNavireAutoriseEnChaine(TYPE_NAVIRE type_autorise);
+int chargePort(Quai **listeQuais, Mouillage *zoneMouillage, Navire **naviresEnMer, const char *port);
+
 
 #endif
