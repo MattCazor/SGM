@@ -239,7 +239,7 @@ void tri_mouillage(Navire *bateau, Quai *quai)
     if (quai != NULL)
     {
         Navire *tmp = bateau;
-        while (tmp != NULL && (tmp->type != quai->type_autorise1 || tmp->type != quai->type_autorise2) && place_dans_quai(quai) < quai->capacite_max)
+        while (tmp != NULL && tmp->type != quai->type_autorise1 && tmp->type != quai->type_autorise2 && place_dans_quai(quai) < quai->capacite_max)
         {
             tmp = tmp->mouillage_suiv;
         }

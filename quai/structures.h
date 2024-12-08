@@ -1,6 +1,5 @@
 #ifndef STRUCTURES_H
-#define STRUCTURES_H 
-
+#define STRUCTURES_H
 
 typedef enum
 {
@@ -36,16 +35,15 @@ typedef struct Quai Quai;
 struct Quai
 {
     int numero;
-    float taille;              
-    float profondeur;            
-    TYPE_NAVIRE type_autorise1;   
+    float taille;
+    float profondeur;
+    TYPE_NAVIRE type_autorise1;
     TYPE_NAVIRE type_autorise2;
-    int capacite_max; 
+    int capacite_max;
     Navire *navire;
-    Navire* attente;   
-    Quai *suivant;  
-    Quai *precedent;   
-    
+    Navire *attente;
+    Quai *suivant;
+    Quai *precedent;
 };
 
 typedef struct Mouillage
@@ -71,15 +69,17 @@ struct id_dispo
 };
 
 typedef struct liste_quai liste_quai;
-struct liste_quai{
+struct liste_quai
+{
     Quai *premier;
     Quai *dernier;
 };
 
-liste_bateau *Liste_bateau; 
-Mouillage *mouillage;          
-id_dispo *Id_Dispo;            
+liste_bateau *Liste_bateau;
+Mouillage *mouillage;
+id_dispo *Id_Dispo;
 liste_quai *Liste_quai;
+
 
 // liste_bateau *Liste_bateau;
 // Mouillage *mouillage;

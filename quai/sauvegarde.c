@@ -67,7 +67,7 @@ int savePort(Quai *listeQuais, Mouillage *zoneMouillage, Navire *naviresEnMer, c
     fprintf(fichier, "----BATEAUX ACCOSTES----\n");
     Quai *quai = listeQuais;
     while (quai != NULL) {
-        fprintf(fichier, "Quai N°%d, Taille:%.2f, Profondeur:%.2f, Type autorisé:%s, Capacité maximale:%d\n", quai->numero, quai->taille, quai->profondeur, typeNavireAutoriseEnChaine(quai->type_autorise), quai->capacite_max);
+        fprintf(fichier, "Quai N°%d, Taille:%.2f, Profondeur:%.2f, Type autorisé 1:%s, Type autorisé 2:%s, Capacité maximale:%d\n", quai->numero, quai->taille, quai->profondeur, typeNavireAutoriseEnChaine(quai->type_autorise1),typeNavireAutoriseEnChaine(quai->type_autorise1), quai->capacite_max);
         Navire *navire = quai->navire;
         while (navire != NULL) {
             fprintf(fichier, "° Bateau ID : %d, Type : %s, Etat : %s, Capacité de chargement : %.2f\n", navire->identifiant, typeNavireEnChaine(navire->type), etatNavireEnChaine(navire->etat), navire->capacite_chargement);
@@ -119,11 +119,12 @@ int chargePort(Quai **listeQuais, Mouillage *zoneMouillage, Navire **naviresEnMe
     Quai *quai = *listeQuais;
 
     while (quai != NULL) {
-        char typeNavire[50]; 
-        fscanf(fichier, "Quai N°%d, Taille:%f, Profondeur:%f, Type autorisé:%s, Capacité maximale:%d\n", 
-                &quai->numero, &quai->taille, &quai->profondeur, typeNavire, &quai->capacite_max);
-        printf("Quai N°%d, Taille:%.2f, Profondeur:%.2f, Type autorisé:%s, Capacité maximale:%d\n", 
-                quai->numero, quai->taille, quai->profondeur, typeNavire, quai->capacite_max);
+        char typeNavire1[50]; 
+        char typeNavire2[50]; 
+        fscanf(fichier, "Quai N°%d, Taille:%f, Profondeur:%f, Type autorisé 1:%s, Type autorisé 2:%s, Capacité maximale:%d\n", 
+                &quai->numero, &quai->taille, &quai->profondeur, typeNavire1, typeNavire2, &quai->capacite_max);
+        printf("Quai N°%d, Taille:%.2f, Profondeur:%.2f, Type autorisé 1:%s, Type autorisé 2:%s, Capacité maximale:%d\n", 
+                quai->numero, quai->taille, quai->profondeur, typeNavire1, typeNavire2, quai->capacite_max);
         Navire *navire = quai->navire;
         
         while (navire != NULL) {

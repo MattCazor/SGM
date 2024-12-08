@@ -12,8 +12,13 @@
 #define TYPE_NAVIRE 4
 #define NB_QUAIS 4
 
+Mouillage zoneMouillage = {0, NULL};
+Navire *naviresEnMer = NULL;
+Quai *listeQuais = NULL;
+
 int main(void)
 {
+    srand(time(NULL));
     initialise_listes();
     for (int i = 0; i < 10; i++)
     {
@@ -29,10 +34,9 @@ int main(void)
     // quai[2] = createQuai(2, 200.0, 10.0, PASSAGER, 3);
     // quai[3] = createQuai(3, 100.0, 8.0, YACHT, 4);
 
-    createQuai(0, 200.0, 10.0, PASSAGER, 3);
-    createQuai(1, 300.0, 12.0, MARCHANDISE, 2);
-    createQuai(2, 400.0, 15.0, PETROLIER, 2);
-    createQuai(3, 100.0, 8.0, YACHT, 4);
+    createQuai(0, 200.0, 10.0, PASSAGER, PASSAGER, 3);
+    createQuai(1, 300.0, 12.0, MARCHANDISE, PETROLIER, 2);
+    createQuai(2, 100.0, 8.0, YACHT, YACHT, 4);
 
     // newBoat(MARCHANDISE, 45);
     // newBoat(MARCHANDISE, 12);
@@ -41,7 +45,8 @@ int main(void)
     afficher_liste_bateau(Liste_bateau);
     afficher_mouillage(mouillage);
 
-    for(int i=0; i<12; i++){
+    for (int i = 0; i < 12; i++)
+    {
         tri_mouillage(mouillage->premier, Liste_quai->premier);
     }
 
@@ -51,12 +56,42 @@ int main(void)
 
     afficherQuai(Liste_quai->premier);
     afficherQuai(Liste_quai->premier->suivant);
-    afficherQuai(Liste_quai->dernier->precedent);
     afficherQuai(Liste_quai->dernier);
 
     afficher_mouillage(mouillage);
 
-    srand(time(NULL));
+    while (1)
+    {
+        sleep(2);
+        int n = rand() % 3 + 1;
+        switch (n)
+        {
+        case 1:
+            quitterQuai(Liste_quai->premier);
+
+            break;
+
+        case 2:
+            quitterQuai(Liste_quai->premier->suivant);
+
+            break;
+
+        case 3:
+            quitterQuai(Liste_quai->dernier);
+
+            break;
+
+        default:
+            break;
+        }
+        tri_mouillage(mouillage->premier, Liste_quai->premier);
+        afficher_mouillage(mouillage);
+        afficherQuai(Liste_quai->premier);
+        afficherQuai(Liste_quai->premier->suivant);
+        afficherQuai(Liste_quai->dernier);
+        savePort(listeQuais, &zoneMouillage, naviresEnMer, "port.txt");
+    }
+
     // while(1)
     // {
 
@@ -107,15 +142,15 @@ int main(void)
     //     }
     //     sleep(5);
     // }
-    Mouillage zoneMouillage = {0, NULL};
-    Navire *naviresEnMer = NULL;
-    Quai *listeQuais = NULL;
+    // Mouillage zoneMouillage = {0, NULL};
+    // Navire *naviresEnMer = NULL;
+    // Quai *listeQuais = NULL;
 
-    chargePort(&listeQuais, &zoneMouillage, &naviresEnMer, "port.txt");
+    // chargePort(&listeQuais, &zoneMouillage, &naviresEnMer, "port.txt");
 
-    while (1) {
-        savePort(listeQuais, &zoneMouillage, naviresEnMer, "port.txt");
-        sleep(3);
-    }
+    // while (1) {
+    //     savePort(listeQuais, &zoneMouillage, naviresEnMer, "port.txt");
+    //     sleep(3);
+    // }
     return 0;
 }

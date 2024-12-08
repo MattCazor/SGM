@@ -46,9 +46,9 @@ int main(int argc, char **argv)
     {
         newBoat(ALEATOIRE, 0);
     }
-    createQuai(0, 200.0, 10.0, PASSAGER, 3);
-    createQuai(1, 300.0, 12.0, MARCHANDISE, 2);
-    createQuai(2, 100.0, 8.0, YACHT, 4);
+    createQuai(0, 200.0, 10.0, PASSAGER,PASSAGER, 3);
+    createQuai(1, 300.0, 12.0, MARCHANDISE, PETROLIER, 2);
+    createQuai(2, 100.0, 8.0, YACHT,YACHT, 4);
     initialiseGfx(argc, argv);
     prepareFenetreGraphique("Port Maritime Réaliste et Responsive", LARGEUR_FENETRE, HAUTEUR_FENETRE);
     lanceBoucleEvenements();
