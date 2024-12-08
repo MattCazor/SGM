@@ -113,9 +113,10 @@ int accosterNavireQuai(Quai *quai, Navire *navire)
 	else
 	{
 		navire->quai_suiv = quai->attente;
+		navire->quai_suiv=quai->attente;
 		quai->attente = navire;
 		navire->etat = ACCOSTE;
-		navire->temps_restant = TempsAttente(navire->type);
+		// navire->temps_restant = TempsAttente(navire->type);
 		printf("Navire %d ajouté au quai %d.\n", navire->identifiant, quai->numero);
 		return 1;
 	}
@@ -160,26 +161,39 @@ void quitterQuai(Quai *quai)
 	}
 
 	Navire *tmp = quai->attente;
-	Navire *ptmp = NULL;
-	while (tmp != NULL)
-	{
-		tmp->temps_restant--;
+	Navire *ptmp = quai->attente;
+	while(tmp->quai_suiv != NULL){
+		ptmp=tmp;
+		tmp=tmp->quai_suiv;
+	}
+	if(tmp==quai->attente){
+		quai->attente=NULL;
+		free(tmp); 
+		return;
+	}
 
-		if (tmp->temps_restant <= 0) // Navire doit partir
-		{
-			printf("Navire %d quitte le quai %d.\n", tmp->identifiant, quai->numero);
-			if (ptmp == NULL)
-			{
-				quai->attente = tmp->suivant;
-			}
-			else
-			{
-				ptmp->suivant = tmp->suivant;
-			}
-			Navire *to_free = tmp;
-			tmp = tmp->suivant;
-			free(to_free);
-		}
+	ptmp->quai_suiv=NULL;
+	free(tmp);
+
+	// while (tmp != NULL)
+	// {
+	// 	tmp->temps_restant--;
+
+	// 	if (tmp->temps_restant <= 0) // Navire doit partir
+	// 	{
+	// 		printf("Navire %d quitte le quai %d.\n", tmp->identifiant, quai->numero);
+	// 		if (ptmp == NULL)
+	// 		{
+	// 			quai->attente = tmp->suivant;
+	// 		}
+	// 		else
+	// 		{
+	// 			ptmp->suivant = tmp->suivant;
+	// 		}
+	// 		Navire *to_free = tmp;
+	// 		tmp = tmp->suivant;
+	// 		free(to_free);
+	// 	}
 
 		// if(tmp->identifiant == identifiant)
 		// {
@@ -195,9 +209,9 @@ void quitterQuai(Quai *quai)
 		//     free(tmp);
 		//     return 1;
 		// }
-		ptmp = tmp;
-		tmp = tmp->quai_suiv;
-	}
+	// 	ptmp = tmp;
+	// 	tmp = tmp->quai_suiv;
+	// }
 }
 
 int attenteAccoster(Quai *quai, Navire *navire)

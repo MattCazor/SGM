@@ -38,12 +38,15 @@ int main(void)
     createQuai(1, 300.0, 12.0, MARCHANDISE, PETROLIER, 2);
     createQuai(2, 100.0, 8.0, YACHT, YACHT, 4);
 
-    // newBoat(MARCHANDISE, 45);
+    // newBoat(PASSAGER, 45);
     // newBoat(MARCHANDISE, 12);
     // newBoat(PETROLIER, 20);
 
     afficher_liste_bateau(Liste_bateau);
     afficher_mouillage(mouillage);
+    // accosterNavireQuai(Liste_quai->premier, mouillage->premier);
+    // afficherQuai(Liste_quai->premier);
+    // quitterQuai(Liste_quai->premier);
 
     for (int i = 0; i < 12; i++)
     {
@@ -54,9 +57,9 @@ int main(void)
     // accosterNavireQuai(Liste_quai->premier, mouillage->premier->mouillage_suiv);
     // accosterNavireQuai(Liste_quai->premier, mouillage->premier->mouillage_suiv->mouillage_suiv);
 
-    afficherQuai(Liste_quai->premier);
-    afficherQuai(Liste_quai->premier->suivant);
-    afficherQuai(Liste_quai->dernier);
+    // afficherQuai(Liste_quai->premier);
+    // afficherQuai(Liste_quai->premier->suivant);
+    // afficherQuai(Liste_quai->dernier);
 
     afficher_mouillage(mouillage);
 
@@ -68,16 +71,19 @@ int main(void)
         {
         case 1:
             quitterQuai(Liste_quai->premier);
+            printf("quitte quai 1\n");
 
             break;
 
         case 2:
             quitterQuai(Liste_quai->premier->suivant);
+            printf("quitte quai 2\n");
 
             break;
 
         case 3:
             quitterQuai(Liste_quai->dernier);
+            printf("quitte quai \n");
 
             break;
 
