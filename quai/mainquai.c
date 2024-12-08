@@ -53,50 +53,52 @@ int main(void)
         tri_mouillage(mouillage->premier, Liste_quai->premier);
     }
 
+    savePort(listeQuais, &zoneMouillage, naviresEnMer, "port.txt");
+
     // accosterNavireQuai(Liste_quai->premier, mouillage->premier);
     // accosterNavireQuai(Liste_quai->premier, mouillage->premier->mouillage_suiv);
     // accosterNavireQuai(Liste_quai->premier, mouillage->premier->mouillage_suiv->mouillage_suiv);
 
-    // afficherQuai(Liste_quai->premier);
-    // afficherQuai(Liste_quai->premier->suivant);
-    // afficherQuai(Liste_quai->dernier);
+    afficherQuai(Liste_quai->premier);
+    afficherQuai(Liste_quai->premier->suivant);
+    afficherQuai(Liste_quai->dernier);
 
-    afficher_mouillage(mouillage);
+    // afficher_mouillage(mouillage);
 
-    while (1)
-    {
-        sleep(2);
-        int n = rand() % 3 + 1;
-        switch (n)
-        {
-        case 1:
-            quitterQuai(Liste_quai->premier);
-            printf("quitte quai 1\n");
+    // while (1)
+    // {
+    //     sleep(2);
+    //     int n = rand() % 3 + 1;
+    //     switch (n)
+    //     {
+    //     case 1:
+    //         quitterQuai(Liste_quai->premier);
+    //         printf("quitte quai 1\n");
 
-            break;
+    //         break;
 
-        case 2:
-            quitterQuai(Liste_quai->premier->suivant);
-            printf("quitte quai 2\n");
+    //     case 2:
+    //         quitterQuai(Liste_quai->premier->suivant);
+    //         printf("quitte quai 2\n");
 
-            break;
+    //         break;
 
-        case 3:
-            quitterQuai(Liste_quai->dernier);
-            printf("quitte quai \n");
+    //     case 3:
+    //         quitterQuai(Liste_quai->dernier);
+    //         printf("quitte quai \n");
 
-            break;
+    //         break;
 
-        default:
-            break;
-        }
-        tri_mouillage(mouillage->premier, Liste_quai->premier);
-        afficher_mouillage(mouillage);
-        afficherQuai(Liste_quai->premier);
-        afficherQuai(Liste_quai->premier->suivant);
-        afficherQuai(Liste_quai->dernier);
-        savePort(listeQuais, &zoneMouillage, naviresEnMer, "port.txt");
-    }
+    //     default:
+    //         break;
+    //     }
+    //     tri_mouillage(mouillage->premier, Liste_quai->premier);
+    //     afficher_mouillage(mouillage);
+    //     afficherQuai(Liste_quai->premier);
+    //     afficherQuai(Liste_quai->premier->suivant);
+    //     afficherQuai(Liste_quai->dernier);
+    //     savePort(listeQuais, &zoneMouillage, naviresEnMer, "port.txt");
+    // }
 
     // while(1)
     // {
