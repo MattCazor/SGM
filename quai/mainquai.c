@@ -12,11 +12,6 @@
 #define TYPE_NAVIRE 4
 #define NB_QUAIS 4
 
-liste_bateau *Liste_bateau = NULL;
-Mouillage *mouillage = NULL;
-id_dispo *Id_Dispo = NULL;
-liste_quai *Liste_quai = NULL;
-
 int main(void)
 {
     initialise_listes();

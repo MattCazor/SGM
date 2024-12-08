@@ -38,7 +38,8 @@ struct Quai
     int numero;
     float taille;              
     float profondeur;            
-    TYPE_NAVIRE type_autorise;   
+    TYPE_NAVIRE type_autorise1;   
+    TYPE_NAVIRE type_autorise2;
     int capacite_max; 
     Navire *navire;
     Navire* attente;   
@@ -75,10 +76,10 @@ struct liste_quai{
     Quai *dernier;
 };
 
-extern liste_bateau *Liste_bateau;  
-extern Mouillage *mouillage;          
-extern id_dispo *Id_Dispo;            
-extern liste_quai *Liste_quai;
+liste_bateau *Liste_bateau; 
+Mouillage *mouillage;          
+id_dispo *Id_Dispo;            
+liste_quai *Liste_quai;
 
 // liste_bateau *Liste_bateau;
 // Mouillage *mouillage;

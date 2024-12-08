@@ -56,7 +56,7 @@ int TempsAttente(TYPE_NAVIRE type)
 	}
 }
 
-Quai *createQuai(int numero, float taille, float profondeur, TYPE_NAVIRE type_autorise, int capacite_max)
+Quai *createQuai(int numero, float taille, float profondeur, TYPE_NAVIRE type_autorise1, TYPE_NAVIRE type_autorise2, int capacite_max)
 {
 	Quai *quai = malloc(sizeof(Quai));
 	if (quai == NULL)
@@ -67,7 +67,8 @@ Quai *createQuai(int numero, float taille, float profondeur, TYPE_NAVIRE type_au
 	quai->numero = numero + 1;
 	quai->taille = taille;
 	quai->profondeur = profondeur;
-	quai->type_autorise = type_autorise;
+	quai->type_autorise1 = type_autorise1;
+	quai->type_autorise2 = type_autorise2;
 	quai->capacite_max = capacite_max;
 	quai->attente = NULL;
 	if (Liste_quai->premier == NULL)
@@ -91,7 +92,7 @@ int accosterNavireQuai(Quai *quai, Navire *navire)
 	{
 		return 0;
 	}
-	if (navire->type != quai->type_autorise)
+	if (navire->type != quai->type_autorise1 && navire->type != quai->type_autorise2)
 	{
 		printf("Navire %d non autorisé sur le quai %d\n", navire->identifiant, quai->numero);
 		return 0;
@@ -127,7 +128,8 @@ void afficherQuai(Quai *quai)
 		return;
 	}
 	printf("=== Quai %d ===\n", quai->numero);
-	printf("Type autorisé: %s\n", typenavire(quai->type_autorise));
+	printf("Type autorisé1: %s\n", typenavire(quai->type_autorise1));
+	printf("Type autorisé2: %s\n", typenavire(quai->type_autorise2));
 	printf("Capacité max: %d navires\n", quai->capacite_max);
 	printf("Taille: %.2f mètres\n", quai->taille);
 	printf("Profondeur: %.2f mètres\n", quai->profondeur);
