@@ -105,6 +105,48 @@ void gestionEvenement(EvenementGfx evenement) {
             if (etatProgramme == SIMULATION && caractereClavier() == 'm') {
                 etatProgramme = MENU; // Retourner au menu avec 'm'
             }
+             char touche = caractereClavier();
+            if (touche == '6') {
+                bateauSelectionne = 1; // Sélectionner le yacht
+                bateauX = largeurFenetre() * 0.9f;
+                bateauY = hauteurFenetre() * 0.8f;
+            } else if (touche == '7') {
+                bateauSelectionne = 2; // Sélectionner le pétrolier
+                bateauX = largeurFenetre() * 0.9f;
+                bateauY = hauteurFenetre() * 0.8f;
+            } else if (touche == '8') {
+                bateauSelectionne = 3; // Sélectionner le bateau de passagers
+                bateauX = largeurFenetre() * 0.9f;
+                bateauY = hauteurFenetre() * 0.8f;
+            } else if (touche == '9') {
+                bateauSelectionne = 4; // Sélectionner le bateau de marchandises
+                bateauX = largeurFenetre() * 0.9f;
+                bateauY = hauteurFenetre() * 0.8f;
+            } else if (touche == '1' && bateauSelectionne > 0) {
+                quaiCible = 1;         // Déplacer vers le quai 3
+                placeCible = 1;
+                SENS = 1;
+                mouvementActif = 1;    // Activer le mouvement
+            } else if (touche == '2' && bateauSelectionne > 0) {
+                quaiCible = 1;         // Déplacer vers le quai 2
+                placeCible = 2;
+                SENS = 1;
+                mouvementActif = 1;    // Activer le mouvement
+            } else if (touche == '3' && bateauSelectionne > 0) {
+                quaiCible = 1;         // Déplacer vers le quai 1
+                placeCible = 3;
+                SENS = 1;
+                mouvementActif = 1;    // Activer le mouvement
+            } else if (touche == '4' && bateauSelectionne > 0) {
+                quaiCible = 1;         // Déplacer vers le quai 4
+                placeCible = 4;
+                SENS = 1;
+                mouvementActif = 1;    // Activer le mouvement
+            } else if (touche == '5' && bateauSelectionne > 0) {
+                SENS = 2;
+                mouvementActif = 1;    // Activer le mouvement
+            }
+            break;
             break;
 
         case Temporisation:
