@@ -1,8 +1,8 @@
 exemple: exemple.o libisentlib.a
-	gcc -Wall exemple.o -o exemple libisentlib.a -lm -lglut -lGL -lX11
+#	gcc -Wall exemple.o -o exemple libisentlib.a -lm -lglut -lGL -lX11
 # Sous macOS, commenter la ligne de commande ci-dessus (en mettant un # au debut)
 # et de-commenter la ligne de commande ci-apres :
-#	gcc -Wall exemple.o -o exemple libisentlib.a -lm -framework OpenGL -framework GLUT
+	gcc -Wall exemple.o -o exemple libisentlib.a -lm -framework OpenGL -framework GLUT
 
 exemple.o: exemple.c GfxLib.h BmpLib.h ESLib.h
 	gcc -Wall -c exemple.c
@@ -21,10 +21,10 @@ ErreurLib.o: ErreurLib.c ErreurLib.h
 	gcc -Wall -O2 -c ErreurLib.c
 
 GfxLib.o: GfxLib.c GfxLib.h ESLib.h
-	gcc -Wall -O2 -c GfxLib.c -I/usr/include/GL
+#	gcc -Wall -O2 -c GfxLib.c -I/usr/include/GL
 # Sous macOS, commenter la ligne de commande ci-dessus (en mettant un # au debut)
 # et de-commenter la ligne de commande ci-apres :
-#	gcc -Wall -O2 -c GfxLib.c -Wno-deprecated-declarations
+	gcc -Wall -O2 -c GfxLib.c -Wno-deprecated-declarations
 
 OutilsLib.o: OutilsLib.c OutilsLib.h
 	gcc -Wall -O2 -c OutilsLib.c
@@ -41,10 +41,10 @@ ThreadLib.o: ThreadLib.c ThreadLib.h
 #	gcc -Wall -O2 -c VectorLib.c -msse3
 
 WavLib.o: WavLib.c WavLib.h OutilsLib.h
-	gcc -Wall -O2 -c WavLib.c -Wno-unused-result
+#	gcc -Wall -O2 -c WavLib.c -Wno-unused-result
 # Sous macOS, commenter la ligne de commande ci-dessus (en mettant un # au debut)
 # et de-commenter la ligne de commande ci-apres :
-#	gcc -Wall -O2 -c WavLib.c
+	gcc -Wall -O2 -c WavLib.c
 
 zip:
 	zip libisentlib.zip *.[ch] *.bmp *.pdf makefile

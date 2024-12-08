@@ -139,25 +139,27 @@ Navire *newBoat(TYPE_NAVIRE type, int capacite)
             break;
 
         case ALEATOIRE:
-            n = rand() % 4 + 1;
+            n = rand() % 6 + 1;
             switch (n)
             {
             case 1:
+            case 2:
                 newBoat(PASSAGER, rand() % 8 + 4);
 
                 break;
 
-            case 2:
+            case 3:
                 newBoat(MARCHANDISE, rand() % 100000 + 10000);
 
                 break;
 
-            case 3:
+            case 4:
                 newBoat(PETROLIER, rand() % 200000 + 80000);
 
                 break;
 
-            case 4:
+            case 5:
+            case 6:
                 newBoat(YACHT, rand() % 3 + 0.5);
 
                 break;
@@ -237,11 +239,11 @@ void tri_mouillage(Navire *bateau, Quai *quai)
     if (quai != NULL)
     {
         Navire *tmp = bateau;
-        while (tmp != NULL && tmp->type != quai->type_autorise && place_dans_quai(quai) < quai->capacite_max)
+        while (tmp != NULL && (tmp->type != quai->type_autorise1 || tmp->type != quai->type_autorise2) && place_dans_quai(quai) < quai->capacite_max)
         {
             tmp = tmp->mouillage_suiv;
         }
-        if (tmp != NULL && tmp->type == quai->type_autorise && place_dans_quai(quai) < quai->capacite_max)
+        if (tmp != NULL && (tmp->type == quai->type_autorise1 || tmp->type == quai->type_autorise2) && place_dans_quai(quai) < quai->capacite_max)
         {
             if (accosterNavireQuai(quai, tmp) != 0)
             {
