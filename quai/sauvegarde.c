@@ -68,7 +68,7 @@ int savePort(Quai *listeQuais, Mouillage *zoneMouillage, Navire *naviresEnMer, c
     Quai *quai = listeQuais;
     while (quai != NULL) {
         fprintf(fichier, "Quai N°%d, Taille:%.2f, Profondeur:%.2f, Type autorisé 1:%s, Type autorisé 2:%s, Capacité maximale:%d\n", quai->numero, quai->taille, quai->profondeur, typeNavireAutoriseEnChaine(quai->type_autorise1),typeNavireAutoriseEnChaine(quai->type_autorise1), quai->capacite_max);
-        Navire *navire = quai->navire;
+        Navire *navire = quai->attente;
         while (navire != NULL) {
             fprintf(fichier, "° Bateau ID : %d, Type : %s, Etat : %s, Capacité de chargement : %.2f\n", navire->identifiant, typeNavireEnChaine(navire->type), etatNavireEnChaine(navire->etat), navire->capacite_chargement);
             navire = navire->suivant;

@@ -53,7 +53,7 @@ int main(void)
         tri_mouillage(mouillage->premier, Liste_quai->premier);
     }
 
-    savePort(listeQuais, &zoneMouillage, naviresEnMer, "port.txt");
+    savePort(Liste_quai->premier, mouillage, Liste_bateau->premier, "port.txt");
 
     // accosterNavireQuai(Liste_quai->premier, mouillage->premier);
     // accosterNavireQuai(Liste_quai->premier, mouillage->premier->mouillage_suiv);
