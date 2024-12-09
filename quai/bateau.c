@@ -86,7 +86,11 @@ Navire *newBoat(TYPE_NAVIRE type, int capacite)
         new->capacite_chargement = capacite;
         new->etat = EN_ATTENTE;
         new->suivant = NULL;
+        new->precedent=NULL;
         new->mouillage_suiv = NULL;
+        new->quai_suiv=NULL;
+        new->en_mer_prec=NULL;
+        new->en_mer_suiv=NULL;
         int n = 0;
         switch (type)
         {

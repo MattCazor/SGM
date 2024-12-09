@@ -20,10 +20,10 @@ int main(void)
 {
     srand(time(NULL));
     initialise_listes();
-    // for (int i = 0; i < 10; i++)
-    // {
-    //     newBoat(ALEATOIRE, 0);
-    // }
+    for (int i = 0; i < 10; i++)
+    {
+        newBoat(ALEATOIRE, 0);
+    }
 
     // afficher_liste_bateau(Liste_bateau);
     // afficher_mouillage(mouillage);
@@ -38,70 +38,70 @@ int main(void)
     createQuai(1, 300.0, 12.0, MARCHANDISE, PETROLIER, 2);
     createQuai(2, 100.0, 8.0, YACHT, YACHT, 4);
 
-    chargePort(Liste_quai->premier, mouillage, Liste_bt_mer->premier, "port.txt");
+    // chargePort(Liste_quai->premier, mouillage, Liste_bt_mer->premier, "port.txt");
 
     // newBoat(PASSAGER, 45);
     // newBoat(MARCHANDISE, 12);
     // newBoat(PETROLIER, 20);
 
-    afficher_liste_bateau(Liste_bateau);
-    afficher_mouillage(mouillage);
+    // afficher_liste_bateau(Liste_bateau);
+    // afficher_mouillage(mouillage);
     // accosterNavireQuai(Liste_quai->premier, mouillage->premier);
     // afficherQuai(Liste_quai->premier);
     // quitterQuai(Liste_quai->premier);
 
-    // for (int i = 0; i < 12; i++)
-    // {
-    //     tri_mouillage(mouillage->premier, Liste_quai->premier);
-    // }
+    for (int i = 0; i < 12; i++)
+    {
+        tri_mouillage(mouillage->premier, Liste_quai->premier);
+    }
 
 
     // accosterNavireQuai(Liste_quai->premier, mouillage->premier);
     // accosterNavireQuai(Liste_quai->premier, mouillage->premier->mouillage_suiv);
     // accosterNavireQuai(Liste_quai->premier, mouillage->premier->mouillage_suiv->mouillage_suiv);
 
-    afficherQuai(Liste_quai->premier);
-    afficherQuai(Liste_quai->premier->suivant);
-    afficherQuai(Liste_quai->dernier);
+    // afficherQuai(Liste_quai->premier);
+    // afficherQuai(Liste_quai->premier->suivant);
+    // afficherQuai(Liste_quai->dernier);
 
     // savePort(Liste_quai->premier, mouillage, Liste_bt_mer->premier, "port.txt");
 
     // afficher_mouillage(mouillage);
 
-    // while (1)
-    // {
-    //     sleep(2);
-    //     int n = rand() % 3 + 1;
-    //     switch (n)
-    //     {
-    //     case 1:
-    //         quitterQuai(Liste_quai->premier);
-    //         printf("quitte quai 1\n");
+    while (1)
+    {
+        sleep(2);
+        int n = rand() % 3 + 1;
+        switch (n)
+        {
+        case 1:
+            quitterQuai(Liste_quai->premier);
+            printf("quitte quai 1\n");
 
-    //         break;
+            break;
 
-    //     case 2:
-    //         quitterQuai(Liste_quai->premier->suivant);
-    //         printf("quitte quai 2\n");
+        case 2:
+            quitterQuai(Liste_quai->premier->suivant);
+            printf("quitte quai 2\n");
 
-    //         break;
+            break;
 
-    //     case 3:
-    //         quitterQuai(Liste_quai->dernier);
-    //         printf("quitte quai \n");
+        case 3:
+            quitterQuai(Liste_quai->dernier);
+            printf("quitte quai \n");
 
-    //         break;
+            break;
 
-    //     default:
-    //         break;
-    //     }
-    //     tri_mouillage(mouillage->premier, Liste_quai->premier);
-    //     afficher_mouillage(mouillage);
-    //     afficherQuai(Liste_quai->premier);
-    //     afficherQuai(Liste_quai->premier->suivant);
-    //     afficherQuai(Liste_quai->dernier);
-    //     savePort(Liste_quai->premier, mouillage, Liste_bt_mer->premier, "port.txt");
-    // }
+        default:
+            break;
+        }
+        tri_mouillage(mouillage->premier, Liste_quai->premier);
+        afficher_mouillage(mouillage);
+        afficherQuai(Liste_quai->premier);
+        afficherQuai(Liste_quai->premier->suivant);
+        afficherQuai(Liste_quai->dernier);
+        savePort(Liste_quai->premier, mouillage, Liste_bt_mer->premier, "port.txt");
+    }
 
     // while(1)
     // {
