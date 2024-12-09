@@ -15,5 +15,6 @@ void enleve_mouillage(int id);
 void tri_mouillage(Navire *bateau, Quai *quai);
 Quai* test_emplacement_vide(liste_quai *Liste);
 int place_dans_quai(Quai* quai);
+void sauve_moi();
 
 #endif

@@ -3,6 +3,7 @@
 #include <string.h>
 #include <time.h>
 #include <math.h>
+#include <unistd.h>
 
 #include "bateau.h"
 #include "quai.h"
@@ -86,11 +87,11 @@ Navire *newBoat(TYPE_NAVIRE type, int capacite)
         new->capacite_chargement = capacite;
         new->etat = EN_ATTENTE;
         new->suivant = NULL;
-        new->precedent=NULL;
+        new->precedent = NULL;
         new->mouillage_suiv = NULL;
-        new->quai_suiv=NULL;
-        new->en_mer_prec=NULL;
-        new->en_mer_suiv=NULL;
+        new->quai_suiv = NULL;
+        new->en_mer_prec = NULL;
+        new->en_mer_suiv = NULL;
         int n = 0;
         switch (type)
         {
@@ -271,7 +272,6 @@ void tri_mouillage(Navire *bateau, Quai *quai)
     }
     else
     {
-        printf("quai NULL\n");
         if (bateau->mouillage_suiv != NULL)
         {
             tri_mouillage(bateau->mouillage_suiv, Liste_quai->premier);
@@ -316,3 +316,34 @@ int place_dans_quai(Quai *quai)
 
     return c;
 }
+
+void sauve_moi()
+{
+    Navire *tmp = Liste_bateau->premier;
+    Navire *ptmp = tmp;
+    while (tmp != NULL)
+    {
+        ptmp = tmp;
+        tmp = tmp->suivant;
+        free(ptmp);
+    }
+    Quai *qtmp = Liste_quai->premier;
+    Quai *pqtmp = qtmp;
+    while (qtmp != NULL)
+    {
+        pqtmp = qtmp;
+        qtmp = qtmp->suivant;
+        free(pqtmp);
+    }
+}
+
+// void affiche_bateau_gfx(){
+//     Quai *quai=Liste_quai->premier;
+//     while(quai!=NULL){
+//         Navire *tmp=quai->attente;
+//         while(tmp!=NULL){
+
+//         }
+//     }
+    
+// }

@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
+#include <unistd.h>
 
 #include "quai.h"
 #include "structures.h"
@@ -175,7 +177,6 @@ void quitterQuai(Quai *quai)
 	{
 		return;
 	}
-
 	Navire *tmp = quai->attente;
 	Navire *ptmp = quai->attente;
 	while (tmp->quai_suiv != NULL)
