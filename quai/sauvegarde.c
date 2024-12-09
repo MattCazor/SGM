@@ -107,7 +107,7 @@ int savePort(Quai *listeQuais, Mouillage *zoneMouillage, Navire *naviresEnMer, c
     return 1;
 }
 
-int chargePort(Quai **listeQuais, Mouillage *zoneMouillage, Navire **naviresEnMer, const char *port) {
+int chargePort(Quai *listeQuais, Mouillage *zoneMouillage, Navire *naviresEnMer, const char *port) {
     FILE *fichier = fopen(port, "r");
     if (fichier == NULL) {
         printf("Erreur lors de l'ouverture du fichier.\n");
@@ -116,7 +116,7 @@ int chargePort(Quai **listeQuais, Mouillage *zoneMouillage, Navire **naviresEnMe
 
     printf("----BATEAUX ACCOSTES----\n");
 
-    Quai *quai = *listeQuais;
+    Quai *quai = listeQuais;
 
     while (quai != NULL) {
         char typeNavire1[50]; 
@@ -125,7 +125,7 @@ int chargePort(Quai **listeQuais, Mouillage *zoneMouillage, Navire **naviresEnMe
                 &quai->numero, &quai->taille, &quai->profondeur, typeNavire1, typeNavire2, &quai->capacite_max);
         printf("Quai N°%d, Taille:%.2f, Profondeur:%.2f, Type autorisé 1:%s, Type autorisé 2:%s, Capacité maximale:%d\n", 
                 quai->numero, quai->taille, quai->profondeur, typeNavire1, typeNavire2, quai->capacite_max);
-        Navire *navire = quai->navire;
+        Navire *navire = quai->attente;
         
         while (navire != NULL) {
             char typeNavire[50];
@@ -134,7 +134,7 @@ int chargePort(Quai **listeQuais, Mouillage *zoneMouillage, Navire **naviresEnMe
                     &navire->identifiant, typeNavire, etatNavire, &navire->capacite_chargement);
             printf("° Bateau ID : %d, Type : %s, Etat : %s, Capacité de chargement : %.2f\n", 
                     navire->identifiant, typeNavire, etatNavire, navire->capacite_chargement);
-            navire = navire->suivant;
+            navire = navire->quai_suiv;
         }
         printf("\n");
         quai = quai->suivant;
@@ -146,7 +146,7 @@ int chargePort(Quai **listeQuais, Mouillage *zoneMouillage, Navire **naviresEnMe
     Navire *tmp = zoneMouillage->premier;
     while (tmp) {
         cpt++;
-        tmp = tmp->suivant;
+        tmp = tmp->mouillage_suiv;
     }
 
     if (cpt > zoneMouillage->capacité) {
@@ -162,12 +162,12 @@ int chargePort(Quai **listeQuais, Mouillage *zoneMouillage, Navire **naviresEnMe
                 &mouillageNavire->identifiant, typeNavire, etatNavire, &mouillageNavire->capacite_chargement);
         printf("° ID : %d, Type : %s, Etat : %s, Capacité de chargement : %.2f\n", 
                 mouillageNavire->identifiant, typeNavire, etatNavire, mouillageNavire->capacite_chargement);
-        mouillageNavire = mouillageNavire->suivant;
+        mouillageNavire = mouillageNavire->mouillage_suiv;
     }
 
     printf("----BATEAUX EN MER----\n");
 
-    Navire *enMerNavire = *naviresEnMer;
+    Navire *enMerNavire = naviresEnMer;
 
     while (enMerNavire != NULL){
         char typeNavire[50];
@@ -176,7 +176,7 @@ int chargePort(Quai **listeQuais, Mouillage *zoneMouillage, Navire **naviresEnMe
                 &enMerNavire->identifiant, typeNavire, etatNavire, &enMerNavire->capacite_chargement);
         printf("° ID : %d, Type : %s, Etat : %s, Capacité de chargement : %.2f\n", 
                 enMerNavire->identifiant, typeNavire, etatNavire, enMerNavire->capacite_chargement);
-        enMerNavire = enMerNavire->suivant;
+        enMerNavire = enMerNavire->en_mer_suiv;
     }
 
     fclose(fichier);
