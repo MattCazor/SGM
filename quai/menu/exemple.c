@@ -128,7 +128,7 @@ void gestionEvenement(EvenementGfx evenement) {
                 SENS = 1;
                 mouvementActif = 1;    // Activer le mouvement
             } else if (touche == '2' && bateauSelectionne > 0) {
-                quaiCible = 1;         // Déplacer vers le quai 2
+                quaiCible = 2;         // Déplacer vers le quai 2
                 placeCible = 2;
                 SENS = 1;
                 mouvementActif = 1;    // Activer le mouvement
@@ -138,8 +138,8 @@ void gestionEvenement(EvenementGfx evenement) {
                 SENS = 1;
                 mouvementActif = 1;    // Activer le mouvement
             } else if (touche == '4' && bateauSelectionne > 0) {
-                quaiCible = 1;         // Déplacer vers le quai 4
-                placeCible = 4;
+                quaiCible = 3;         // Déplacer vers le quai 4
+                placeCible = 1;
                 SENS = 1;
                 mouvementActif = 1;    // Activer le mouvement
             } else if (touche == '5' && bateauSelectionne > 0) {
