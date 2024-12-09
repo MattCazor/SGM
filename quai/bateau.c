@@ -26,6 +26,10 @@ void initialise_listes()
     Liste_quai = malloc(sizeof(liste_quai));
     Liste_quai->premier = NULL;
     Liste_quai->dernier = NULL;
+
+    Liste_bt_mer = malloc(sizeof(Liste_bt_mer));
+    Liste_bt_mer->premier = NULL;
+    Liste_bt_mer->dernier = NULL;
 }
 
 int nb_mouillage()

@@ -113,7 +113,7 @@ int accosterNavireQuai(Quai *quai, Navire *navire)
 	else
 	{
 		navire->quai_suiv = quai->attente;
-		navire->quai_suiv=quai->attente;
+		navire->quai_suiv = quai->attente;
 		quai->attente = navire;
 		navire->etat = ACCOSTE;
 		// navire->temps_restant = TempsAttente(navire->type);
@@ -153,6 +153,22 @@ void afficherQuai(Quai *quai)
 	}
 }
 
+void ajoute_bt_en_mer(Navire *bateau)
+{
+	bateau->etat=EN_MER;
+	if (Liste_bt_mer->premier == NULL)
+	{
+		Liste_bt_mer->premier = bateau;
+		Liste_bt_mer->dernier = bateau;
+		return;
+	}
+
+	Navire *tmp = Liste_bt_mer->dernier;
+	tmp->en_mer_suiv = bateau;
+	bateau->en_mer_prec = tmp;
+	Liste_bt_mer->dernier = bateau;
+}
+
 void quitterQuai(Quai *quai)
 {
 	if (quai == NULL || quai->attente == NULL)
@@ -162,18 +178,20 @@ void quitterQuai(Quai *quai)
 
 	Navire *tmp = quai->attente;
 	Navire *ptmp = quai->attente;
-	while(tmp->quai_suiv != NULL){
-		ptmp=tmp;
-		tmp=tmp->quai_suiv;
+	while (tmp->quai_suiv != NULL)
+	{
+		ptmp = tmp;
+		tmp = tmp->quai_suiv;
 	}
-	if(tmp==quai->attente){
-		quai->attente=NULL;
-		free(tmp); 
+	if (tmp == quai->attente)
+	{
+		quai->attente = NULL;
+		ajoute_bt_en_mer(tmp);
 		return;
 	}
 
-	ptmp->quai_suiv=NULL;
-	free(tmp);
+	ptmp->quai_suiv = NULL;
+	ajoute_bt_en_mer(tmp);
 
 	// while (tmp != NULL)
 	// {
@@ -195,20 +213,20 @@ void quitterQuai(Quai *quai)
 	// 		free(to_free);
 	// 	}
 
-		// if(tmp->identifiant == identifiant)
-		// {
-		// 	if(ptmp != NULL)
-		// 	{
-		// 		ptmp->suivant=tmp->suivant;
-		// 	}
-		// 	else
-		// 	{
-		// 		quai->attente=tmp->suivant;
-		// 	}
-		// 	printf("Navire %d a quitté le quai %d.\n", identifiant, quai->numero);
-		//     free(tmp);
-		//     return 1;
-		// }
+	// if(tmp->identifiant == identifiant)
+	// {
+	// 	if(ptmp != NULL)
+	// 	{
+	// 		ptmp->suivant=tmp->suivant;
+	// 	}
+	// 	else
+	// 	{
+	// 		quai->attente=tmp->suivant;
+	// 	}
+	// 	printf("Navire %d a quitté le quai %d.\n", identifiant, quai->numero);
+	//     free(tmp);
+	//     return 1;
+	// }
 	// 	ptmp = tmp;
 	// 	tmp = tmp->quai_suiv;
 	// }
