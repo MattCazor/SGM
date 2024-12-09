@@ -6,6 +6,11 @@
 #include "ESLib.h"
 #include <time.h>
 
+#include "../bateau.h"
+#include "../quai.h"
+#include "../structures.h"
+#include "../sauvegarde.h"
+
 // Dimensions par défaut de la fenêtre
 #define LARGEUR_FENETRE 800
 #define HAUTEUR_FENETRE 600
@@ -52,6 +57,12 @@ void mouvementVersSortie(int largeurFenetre, int hauteurFenetre, float *bateauX,
 
 int main(int argc, char **argv) {
     initialiseGfx(argc, argv);
+    initialise_listes();
+    for (int i = 0; i < 10; i++)
+    {
+        newBoat(ALEATOIRE, 0);
+    }
+    afficher_mouillage(mouillage);
     prepareFenetreGraphique("Menu et Simulation", LARGEUR_FENETRE, HAUTEUR_FENETRE);
     lanceBoucleEvenements();
     return 0;

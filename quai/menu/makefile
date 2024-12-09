@@ -1,8 +1,8 @@
-portGFX: portGFX.o libisentlib.a
+portGFX: portGFX.o libisentlib.a quai.o bateau.o sauvegarde.o
 #	gcc -Wall portGFX.o -o portGFX libisentlib.a -lm -lglut -lGL -lX11
 # Sous macOS, commenter la ligne de commande ci-dessus (en mettant un # au debut)
 # et de-commenter la ligne de commande ci-apres :
-	gcc -Wall portGFX.o -o portGFX libisentlib.a -lm -framework OpenGL -framework GLUT
+	gcc -Wall portGFX.o -o portGFX quai.o bateau.o sauvegarde.o libisentlib.a -lm -framework OpenGL -framework GLUT
 
 portGFX.o: portGFX.c GfxLib.h BmpLib.h ESLib.h
 	gcc -Wall -c portGFX.c
@@ -56,3 +56,11 @@ clean:
 deepclean: clean
 	rm -f portGFX portGFXTortue libisentlib.a
 
+quai.o : ../quai.c
+	gcc -g -Wall -c ../quai.c
+
+bateau.o : ../bateau.c
+	gcc -g -Wall -c ../bateau.c
+
+sauvegarde.o : ../sauvegarde.c
+	gcc -g -Wall -c ../sauvegarde.c
