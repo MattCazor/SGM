@@ -1,11 +1,11 @@
-exemple: exemple.o libisentlib.a
-	gcc -Wall exemple.o -o exemple libisentlib.a -lm -lglut -lGL -lX11
+portGFX: portGFX.o libisentlib.a
+	gcc -Wall portGFX.o -o portGFX libisentlib.a -lm -lglut -lGL -lX11
 # Sous macOS, commenter la ligne de commande ci-dessus (en mettant un # au debut)
 # et de-commenter la ligne de commande ci-apres :
-#	gcc -Wall exemple.o -o exemple libisentlib.a -lm -framework OpenGL -framework GLUT
+#	gcc -Wall portGFX.o -o portGFX libisentlib.a -lm -framework OpenGL -framework GLUT
 
-exemple.o: exemple.c GfxLib.h BmpLib.h ESLib.h
-	gcc -Wall -c exemple.c
+portGFX.o: portGFX.c GfxLib.h BmpLib.h ESLib.h
+	gcc -Wall -c portGFX.c
 
 libisentlib.a: BmpLib.o ErreurLib.o ESLib.o GfxLib.o OutilsLib.o SocketLib.o ThreadLib.o VectorLib.o WavLib.o
 	ar r libisentlib.a BmpLib.o ErreurLib.o ESLib.o GfxLib.o OutilsLib.o SocketLib.o ThreadLib.o VectorLib.o WavLib.o
@@ -54,5 +54,5 @@ clean:
 	rm -f *~ *.o
 
 deepclean: clean
-	rm -f exemple exempleTortue libisentlib.a
+	rm -f portGFX portGFXTortue libisentlib.a
 

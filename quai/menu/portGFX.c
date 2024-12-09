@@ -128,18 +128,18 @@ void gestionEvenement(EvenementGfx evenement) {
                 SENS = 1;
                 mouvementActif = 1;    // Activer le mouvement
             } else if (touche == '2' && bateauSelectionne > 0) {
-                quaiCible = 1;         // Déplacer vers le quai 2
+                quaiCible = 2;         // Déplacer vers le quai 2
                 placeCible = 2;
                 SENS = 1;
                 mouvementActif = 1;    // Activer le mouvement
             } else if (touche == '3' && bateauSelectionne > 0) {
-                quaiCible = 1;         // Déplacer vers le quai 1
-                placeCible = 3;
+                quaiCible = 3;         // Déplacer vers le quai 1
+                placeCible = 1;
                 SENS = 1;
                 mouvementActif = 1;    // Activer le mouvement
             } else if (touche == '4' && bateauSelectionne > 0) {
-                quaiCible = 1;         // Déplacer vers le quai 4
-                placeCible = 4;
+                quaiCible = 2;         // Déplacer vers le quai 4
+                placeCible = 3;
                 SENS = 1;
                 mouvementActif = 1;    // Activer le mouvement
             } else if (touche == '5' && bateauSelectionne > 0) {
@@ -416,7 +416,7 @@ void dessineTitreResponsive(float largeur, float hauteur) {
 }
 
 /**
- * @brief Dessine le bouton "Lancer la simulation" de manière responsive.
+ * @brief Dessine le bouton "Lancer la simulation".
  */
 void dessineBoutonResponsive(float largeur, float hauteur, int survole) {
     float xBouton = largeur * 0.35f;
@@ -479,7 +479,7 @@ void dessineSimulation() {
 
 
 /**
- * @brief Dessiner l'eau avec un dégradé horizontal et des vagues.
+ * @brief Dessiner l'eau.
  */
 void dessineEau(int largeur, int hauteur, int portLargeur) {
     static float offset = 0; // Décalage pour l'animation des vagues
@@ -503,7 +503,7 @@ void dessineEau(int largeur, int hauteur, int portLargeur) {
 
 
 /**
- * @brief Dessiner uniquement la zone grise représentant le port, étendue vers la droite.
+ * @brief Dessiner le port.
  */
 void dessinePort(int largeur, int hauteur) {
     int portLargeur = largeur * 0.7; // Le port occupe maintenant 70% de la largeur (côté gauche étendu)
@@ -555,7 +555,7 @@ void dessinePort(int largeur, int hauteur) {
 
 
 /**
- * @brief Dessiner une digue étendue et un phare réaliste.
+ * @brief Dessiner une digue et un phare.
  */
 void dessineDigueEtPhare(int largeur, int hauteur) {
     float digueLargeur = largeur * 0.05f; // Digue étroite
@@ -593,7 +593,7 @@ void dessineDigueEtPhare(int largeur, int hauteur) {
 
 
 /**
- * @brief Dessiner un cercle à une position donnée avec un rayon donné.
+ * @brief Dessiner un cercle.
  */
 void cercle(float centreX, float centreY, float rayon) {
     const int SEGMENTS = 100;
@@ -616,7 +616,7 @@ void cercle(float centreX, float centreY, float rayon) {
 
 
 /**
- * @brief Dessiner un bateau de passagers avec plusieurs étages et fenêtres.
+ * @brief Dessiner un bateau de passagers.
  */
 void dessineBateauPassagers(float x, float y, float quaiLargeur, float quaiHauteur) {
     float largeur = quaiLargeur / 3;  // Largeur = 1/3 de la largeur du quai
@@ -647,7 +647,7 @@ void dessineBateauPassagers(float x, float y, float quaiLargeur, float quaiHaute
 }
 
 /**
- * @brief Dessiner un bateau de marchandises amélioré avec une grue plus visible.
+ * @brief Dessiner un bateau de marchandises.
  */
 void dessineBateauMarchandises(float x, float y, float quaiLargeur, float quaiHauteur) {
     float largeur = quaiLargeur; // Largeur = largeur du quai
@@ -688,7 +688,7 @@ void dessineBateauMarchandises(float x, float y, float quaiLargeur, float quaiHa
 
 
 /**
- * @brief Dessiner un pétrolier avec des réservoirs cylindriques et des pipelines.
+ * @brief Dessiner un pétrolier.
  */
 void dessinePetrolier(float x, float y, float largeur, float hauteur) {
     // Coque
@@ -708,7 +708,7 @@ void dessinePetrolier(float x, float y, float largeur, float hauteur) {
 }
 
 /**
- * @brief Dessiner un yacht corrigé et plus élégant.
+ * @brief Dessiner un yacht.
  */
 void dessineYacht(float x, float y, float quaiLargeur, float quaiHauteur) {
     float largeur = quaiLargeur / 4;  // Largeur = 1/4 de la largeur du quai
